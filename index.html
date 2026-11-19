@@ -154,6 +154,7 @@
         >
           Info
         </button>
+        <a href="resume.html" class="relative z-10 w-[68px] py-1.5 text-xs font-medium rounded-full text-muted hover:text-white transition-colors" style="text-align:center">Resume</a>
       </nav>
 
       <div class="flex items-center gap-3 sm:gap-4 text-xs text-muted shrink-0">
@@ -2351,6 +2352,7 @@
       renderInfoSkillsMatrix();
       updateNavSlider('work');
       mountWorkVisualizers();
+      if (location.hash === '#info') navigateTo('info');
     });
   </script>
 </body>
