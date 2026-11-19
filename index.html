@@ -95,6 +95,12 @@
       #view-work > div:first-child { max-width: 960px; }
       #view-work > div:first-child > p { max-width: 800px; }
     }
+    #app-main:has(#view-work:not(.hidden)) { padding-top: 0; }
+    #home-hero { position:relative; min-height:calc(100svh - var(--header-height,65px)); display:flex; flex-direction:column; justify-content:center; padding:64px 0 100px; }
+    #home-hero > p { margin-top:24px; }
+    .hero-scroll { position:absolute; bottom:28px; left:0; display:flex; align-items:center; gap:14px; font:12px 'JetBrains Mono',monospace; color:#9ca3af; }
+    .hero-scroll:hover { color:#f4f4f6; }
+    .hero-scroll span { font-size:22px; }
   </style>
 </head>
 <body class="min-h-screen bg-obsidian text-ink antialiased selection:bg-white/20 selection:text-white">
@@ -230,7 +236,7 @@
   <main id="app-main" class="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 pt-12 sm:pt-20 pb-24 transition-opacity duration-300">
     <!-- VIEW 1: WORK -->
     <section id="view-work" class="space-y-14 sm:space-y-16">
-      <div class="max-w-3xl space-y-5">
+      <div id="home-hero" class="max-w-3xl space-y-5">
         <h1 class="text-4xl sm:text-6xl font-medium tracking-tight leading-[1.06] text-white">
           Engineering intelligent systems, from
           <span class="font-serif italic font-normal text-zinc-200">retrieval to runtime.</span>
@@ -238,9 +244,10 @@
         <p class="text-base sm:text-lg text-muted leading-relaxed max-w-2xl">
           Generative AI engineer building RAG pipelines, LLM fine-tuning workflows, and fast CPU/GPU inference—including a cloud-deployed RAG app and a 5.5&times; ONNX speech speedup. Based in Hyderabad.
         </p>
+        <a class="hero-scroll" href="#selected-work">Explore selected work <span aria-hidden="true">⌄</span></a>
       </div>
 
-      <div class="space-y-4">
+      <div id="selected-work" class="space-y-4" style="scroll-margin-top:90px">
         <div class="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-muted">
           <span>Selected Work &rsquo;25&ndash;&rsquo;26</span>
           <span class="text-zinc-300">Click any card to open case study</span>
@@ -1365,6 +1372,7 @@
     }
 
     function navigateTo(view) {
+      if (morphInProgress) return;
       destroyHeroVisualizer();
       activeCaseStudyId = null;
       currentView = view;
@@ -1479,124 +1487,93 @@
       mountHeroVisualizer(proj.id);
     }
 
+    let morphInProgress = false;
+    function caseMorphRect() {
+      const main = document.getElementById('app-main');
+      const rect = main.getBoundingClientRect();
+      const css = getComputedStyle(main);
+      const left = rect.left + parseFloat(css.paddingLeft);
+      const width = rect.width - parseFloat(css.paddingLeft) - parseFloat(css.paddingRight);
+      const top = document.querySelector('header').getBoundingClientRect().height + 24;
+      return { left, top, width, height: Math.max(120, window.innerHeight - top - 24) };
+    }
+    function placeMorph(overlay, rect) {
+      Object.assign(overlay.style, Object.fromEntries(['left','top','width','height'].map(key => [key, rect[key] + 'px'])));
+    }
     function openCaseStudyWithMorph(projectId, sourceCardEl) {
-      if (!activeCaseStudyId) savedWorkScrollY = window.scrollY || 0;
+      if (morphInProgress) return;
+      if (activeCaseStudyId) {
+        renderCaseStudy(projectId);
+        window.scrollTo({top:0, behavior:'instant'});
+        return;
+      }
+      savedWorkScrollY = window.scrollY || 0;
       lastClickedCardEl = sourceCardEl || document.getElementById(`card-${projectId}`);
-
       const overlay = document.getElementById('flip-morph-overlay');
-      const mainEl = document.getElementById('app-main');
-
-      const showCaseSection = () => {
+      const main = document.getElementById('app-main');
+      const showCase = () => {
         document.getElementById('view-work').classList.add('hidden');
         document.getElementById('view-info').classList.add('hidden');
         document.getElementById('view-case-study').classList.remove('hidden');
         destroyWorkVisualizers();
         currentView = 'case-study';
         renderCaseStudy(projectId);
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        window.scrollTo({top:0, behavior:'instant'});
       };
-
-      if (!overlay || !lastClickedCardEl || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        showCaseSection();
-        return;
-      }
-
-      const rect = lastClickedCardEl.getBoundingClientRect();
+      if (!lastClickedCardEl || matchMedia('(prefers-reduced-motion: reduce)').matches) { showCase(); return; }
+      morphInProgress = true;
       overlay.classList.remove('hidden');
-      overlay.style.opacity = '1';
-      overlay.style.left = `${rect.left}px`;
-      overlay.style.top = `${rect.top}px`;
-      overlay.style.width = `${rect.width}px`;
-      overlay.style.height = `${rect.height}px`;
+      overlay.style.transition = 'none';
+      placeMorph(overlay, lastClickedCardEl.getBoundingClientRect());
       overlay.style.borderRadius = '24px';
-
-      if (mainEl) {
-        mainEl.style.opacity = '0.35';
-      }
-
+      overlay.style.opacity = '1';
+      const target = caseMorphRect();
+      main.style.opacity = '0.35';
+      // Commit the initial bounds before transitioning to the measured page frame.
+      overlay.getBoundingClientRect();
       requestAnimationFrame(() => {
-        const vw = window.innerWidth;
-        const vh = window.innerHeight;
-        const targetW = Math.min(vw * 0.92, 1040);
-        const targetH = Math.min(vh * 0.84, 720);
-        const targetLeft = (vw - targetW) / 2;
-        const targetTop = Math.max(24, (vh - targetH) / 2);
-
-        overlay.style.transition = 'all 460ms cubic-bezier(0.22, 1, 0.36, 1)';
-        overlay.style.left = `${targetLeft}px`;
-        overlay.style.top = `${targetTop}px`;
-        overlay.style.width = `${targetW}px`;
-        overlay.style.height = `${targetH}px`;
-        overlay.style.borderRadius = '32px';
+        overlay.style.transition = 'all 460ms cubic-bezier(0.22,1,0.36,1)';
+        placeMorph(overlay, target);
+        overlay.style.borderRadius = '24px';
       });
-
       setTimeout(() => {
-        showCaseSection();
-        overlay.style.transition = 'opacity 260ms ease';
+        showCase();
+        main.style.opacity = '1';
+        overlay.style.transition = 'opacity 200ms ease';
         overlay.style.opacity = '0';
-        if (mainEl) mainEl.style.opacity = '1';
-        setTimeout(() => {
-          overlay.classList.add('hidden');
-          overlay.style.transition = '';
-        }, 270);
-      }, 260);
+        setTimeout(() => { overlay.classList.add('hidden'); morphInProgress = false; }, 210);
+      }, 470);
     }
-
     function closeCaseStudyWithMorph() {
+      if (morphInProgress) return;
       const overlay = document.getElementById('flip-morph-overlay');
-      const mainEl = document.getElementById('app-main');
-
+      const main = document.getElementById('app-main');
+      const start = caseMorphRect();
       destroyHeroVisualizer();
       activeCaseStudyId = null;
       currentView = 'work';
-
       document.getElementById('view-case-study').classList.add('hidden');
       document.getElementById('view-info').classList.add('hidden');
       document.getElementById('view-work').classList.remove('hidden');
       updateNavSlider('work');
-
-      window.scrollTo({ top: savedWorkScrollY, behavior: 'instant' });
+      window.scrollTo({top:savedWorkScrollY, behavior:'instant'});
       mountWorkVisualizers();
-
-      const targetCard = lastClickedCardEl && lastClickedCardEl.isConnected
-        ? lastClickedCardEl
-        : document.getElementById('card-synqra');
-
-      if (!overlay || !targetCard || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        return;
-      }
-
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
-      const startW = Math.min(vw * 0.88, 960);
-      const startH = Math.min(vh * 0.72, 540);
-      const destRect = targetCard.getBoundingClientRect();
-
+      if (!lastClickedCardEl || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      morphInProgress = true;
       overlay.classList.remove('hidden');
       overlay.style.transition = 'none';
-      overlay.style.opacity = '0.85';
-      overlay.style.left = `${(vw - startW) / 2}px`;
-      overlay.style.top = `${Math.max(36, (vh - startH) / 2)}px`;
-      overlay.style.width = `${startW}px`;
-      overlay.style.height = `${startH}px`;
-      overlay.style.borderRadius = '32px';
-      if (mainEl) mainEl.style.opacity = '0.88';
-
+      placeMorph(overlay, start);
+      overlay.style.borderRadius = '24px';
+      overlay.style.opacity = '0.9';
+      main.style.opacity = '0.65';
+      overlay.getBoundingClientRect();
       requestAnimationFrame(() => {
-        overlay.style.transition = 'all 400ms cubic-bezier(0.22, 1, 0.36, 1)';
-        overlay.style.left = `${destRect.left}px`;
-        overlay.style.top = `${destRect.top}px`;
-        overlay.style.width = `${destRect.width}px`;
-        overlay.style.height = `${destRect.height}px`;
-        overlay.style.borderRadius = '24px';
+        overlay.style.transition = 'all 400ms cubic-bezier(0.22,1,0.36,1)';
+        placeMorph(overlay, lastClickedCardEl.getBoundingClientRect());
         overlay.style.opacity = '0';
-        if (mainEl) mainEl.style.opacity = '1';
+        main.style.opacity = '1';
       });
-
-      setTimeout(() => {
-        overlay.classList.add('hidden');
-        overlay.style.transition = '';
-      }, 420);
+      setTimeout(() => { overlay.classList.add('hidden'); morphInProgress = false; }, 420);
     }
 
     document.addEventListener('keydown', (e) => {
@@ -2346,6 +2323,7 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      new ResizeObserver(([entry]) => document.documentElement.style.setProperty('--header-height', entry.target.getBoundingClientRect().height + 'px')).observe(document.querySelector('header'));
       renderInlineCardStacks();
       renderTechCategoryFilters();
       renderTechStackGrid();
