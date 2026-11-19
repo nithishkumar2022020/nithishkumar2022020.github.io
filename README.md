@@ -1,5 +1,9 @@
 # Personal Portfolio
 
+Live website: https://nithishkumar2022020.github.io/
+
+Repository: https://github.com/nithishkumar2022020/nithishkumar2022020.github.io
+
 Nithish Kumar Reddy — Generative AI Engineer. Built from the supplied HTML mockup, with animated canvas visualizers, project case studies, technology filters, and an Info view.
 
 ## Preview
