@@ -113,9 +113,9 @@ const travelDistance=outsideX-restingX;const entranceTime=travelDistance/worldSp
 const arrival=entranceTime,helloStart=arrival+.45,helloEnd=helloStart+2,exitStart=helloEnd+.45,endTime=exitStart+entranceTime;
 const time=reducedMotion.matches?helloStart+.3:t%(endTime+.65);
 if(time<arrival){x=Math.max(restingX,outsideX-worldSpeed*time);heading=-1.35;walking=true;cycle=time*11.5;}
-else if(time<helloStart){x=restingX;heading=-1.35+1.77*ease((time-arrival)/.45);}
-else if(time<helloEnd){x=restingX;heading=.42;greeting=true;const q=(time-helloStart)/2;hz=Math.sin(q*Math.PI*2)*.16;}
-else if(time<exitStart){x=restingX;heading=.42+(.95-.42)*ease((time-helloEnd)/.45);}
+else if(time<helloStart){x=restingX;heading=-1.35+1.35*ease((time-arrival)/.45);}
+else if(time<helloEnd){x=restingX;heading=0;greeting=true;const q=(time-helloStart)/2;hz=Math.sin(q*Math.PI*2)*.16;}
+else if(time<exitStart){x=restingX;heading=.95*ease((time-helloEnd)/.45);}
 else{x=Math.min(outsideX,restingX+worldSpeed*(time-exitStart));heading=.95;walking=time<endTime;cycle=(time-exitStart)*11.5;}
 const step=walking?Math.sin(cycle):0;
 const waddle=walking?Math.cos(cycle):0;
