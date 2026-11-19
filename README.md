@@ -1,6 +1,6 @@
 # Personal Portfolio
 
-Nithish Reddy — Generative AI Engineer. Built from the supplied HTML mockup, with animated canvas visualizers, project case studies, technology filters, and an Info view.
+Nithish Kumar Reddy — Generative AI Engineer. Built from the supplied HTML mockup, with animated canvas visualizers, project case studies, technology filters, and an Info view.
 
 ## Preview
 
