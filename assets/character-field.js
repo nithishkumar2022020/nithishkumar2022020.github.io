@@ -3,9 +3,7 @@ const canvas=document.createElement('canvas');canvas.id='site-character-field';c
 const ring=document.createElement('div'),dot=document.createElement('div');ring.className='site-cursor-ring';dot.className='site-cursor-dot';ring.setAttribute('aria-hidden','true');dot.setAttribute('aria-hidden','true');document.body.append(ring,dot);
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches,fine=matchMedia('(hover:hover) and (pointer:fine)');
 const state={chars:'01',cursor:'ring',playing:!reduced,radius:80};
-const controls=document.createElement('div');controls.className='matrix-preview-controls';
-const pause=document.createElement('button');pause.type='button';controls.append(pause);document.body.append(controls);
-function sync(){document.body.dataset.siteCursor=state.cursor;pause.textContent=state.playing?'Pause background':'Play background';pause.setAttribute('aria-pressed',String(!state.playing));}sync();pause.onclick=()=>{state.playing=!state.playing;sync();};
+document.body.dataset.siteCursor=state.cursor;
 let w=0,h=0,points=[],time=0,last=0,ringX=0,ringY=0,needsRects=true,rects=[];
 const pointer={x:-1000,y:-1000,vx:0,vy:0,active:false};
 function resize(){w=innerWidth;h=innerHeight;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);c.setTransform(dpr,0,0,dpr,0,0);points=[];for(let y=12;y<h;y+=23)for(let x=12;x<w;x+=21)points.push({bx:x,by:y,x,y,vx:0,vy:0,phase:Math.random()*Math.PI*2,char:Math.random()<.5?'0':'1',alpha:.3+Math.random()*.7,mint:Math.random()<.065,next:Math.random()*.26});needsRects=true;}
