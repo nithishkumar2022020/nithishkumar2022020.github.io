@@ -1,0 +1,2349 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nithish Reddy — Generative AI Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./styles.css" />
+  <meta name="description" content="Nithish Reddy — Generative AI Engineer building RAG pipelines, LLM systems, and fast inference. Explore projects, engineering case studies, and experience." />
+  <style>
+    html,
+    body {
+      background-color: #09090B;
+      color: #F4F4F6;
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .glass-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, rgba(255, 255, 255, 0.012) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 20px 60px -24px rgba(0, 0, 0, 0.9);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.24);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 28px 75px -24px rgba(0, 0, 0, 0.96);
+    }
+
+    .glass-card:focus-visible {
+      outline: 2px solid rgba(52, 211, 153, 0.65);
+      outline-offset: 3px;
+    }
+
+    .open-pill {
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .glass-card:hover .open-pill {
+      transform: translateX(3px);
+      background-color: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .viz-stage {
+      background: radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.03), rgba(9, 9, 11, 0.72) 82%);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .pill-nav {
+      background: rgba(20, 20, 24, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+    }
+
+    .tech-card {
+      transform-style: preserve-3d;
+      transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .tech-card.is-tilting {
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    #flip-morph-overlay {
+      position: fixed;
+      z-index: 60;
+      pointer-events: none;
+      background: linear-gradient(160deg, rgba(24, 24, 29, 0.96), rgba(10, 10, 13, 0.99));
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      will-change: left, top, width, height, border-radius, opacity;
+    }
+    @media (max-width: 480px) {
+      header > div:first-child { flex-wrap: wrap; height: auto; min-height: 64px; padding-top: 12px; padding-bottom: 12px; }
+      header > div:first-child > div:last-child { width: 100%; justify-content: flex-end; }
+      #view-work > div:nth-child(2) > div:first-child { flex-wrap: wrap; gap: 8px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-obsidian text-ink antialiased selection:bg-white/20 selection:text-white">
+  <!-- Top radial spotlight -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none fixed inset-x-0 top-0 h-[440px] z-0"
+    style="background: radial-gradient(ellipse 65% 55% at 50% 0%, rgba(255, 255, 255, 0.07), rgba(9, 9, 11, 0) 72%);"
+  ></div>
+
+  <!-- FLIP card morph overlay -->
+  <div id="flip-morph-overlay" class="hidden"></div>
+
+  <!-- Toast notification -->
+  <div
+    id="toast"
+    role="status"
+    aria-live="polite"
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[70] pointer-events-none opacity-0 translate-y-2 transition-all duration-300 px-4 py-2 rounded-full bg-zinc-900/95 border border-white/15 text-xs font-mono text-zinc-100 shadow-2xl"
+  >
+    Copied to clipboard
+  </div>
+
+  <!-- Navigation Header -->
+  <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-obsidian/75 border-b border-white/[0.06]">
+    <div class="max-w-5xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-3">
+      <button
+        type="button"
+        onclick="navigateTo('work')"
+        class="text-left group focus:outline-none min-w-0"
+      >
+        <div class="text-sm font-medium tracking-tight text-white group-hover:text-zinc-200 transition-colors truncate">
+          Nithish Reddy
+        </div>
+        <div class="text-[11px] text-muted truncate">Generative AI Engineer</div>
+      </button>
+
+      <nav aria-label="Primary view toggle" class="pill-nav relative rounded-full p-1 flex items-center shrink-0">
+        <span
+          id="nav-pill-slider"
+          aria-hidden="true"
+          class="absolute top-1 bottom-1 left-1 w-[68px] rounded-full bg-white/[0.13] border border-white/[0.12] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        ></span>
+        <button
+          type="button"
+          id="tab-work"
+          onclick="navigateTo('work')"
+          class="relative z-10 w-[68px] py-1.5 text-xs font-medium rounded-full text-white transition-colors"
+        >
+          Work
+        </button>
+        <button
+          type="button"
+          id="tab-info"
+          onclick="navigateTo('info')"
+          class="relative z-10 w-[68px] py-1.5 text-xs font-medium rounded-full text-muted hover:text-white transition-colors"
+        >
+          Info
+        </button>
+      </nav>
+
+      <div class="flex items-center gap-3 sm:gap-4 text-xs text-muted shrink-0">
+        <a
+          href="https://github.com/nithishkumar2022020"
+          target="_blank"
+          rel="noreferrer"
+          class="hover:text-white transition-colors"
+        >
+          GitHub
+        </a>
+        <a
+          href="https://www.linkedin.com/in/reddyvari-nithish-kumar-reddy"
+          target="_blank"
+          rel="noreferrer"
+          class="hover:text-white transition-colors"
+        >
+          LinkedIn
+        </a>
+        <button
+          type="button"
+          onclick="toggleContactCard()"
+          aria-controls="contact-popover" aria-expanded="false"
+          class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.1] text-[11px] font-mono text-zinc-100 transition-colors"
+        >
+          <span>Contact</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Easy-Access Contact Popover -->
+    <div
+      id="contact-popover"
+      class="hidden max-w-5xl mx-auto px-5 sm:px-8 pb-4"
+    >
+      <div class="rounded-2xl bg-zinc-950/95 border border-white/[0.12] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xl">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+          <div>
+            <div class="text-[10px] uppercase tracking-wider text-muted">Email</div>
+            <button
+              type="button"
+              onclick="copyText('reddynithish15@gmail.com', 'Email copied: reddynithish15@gmail.com')"
+              class="text-zinc-100 hover:text-emerald-300 transition-colors text-left"
+            >
+              reddynithish15@gmail.com
+            </button>
+          </div>
+          <div>
+            <div class="text-[10px] uppercase tracking-wider text-muted">Location</div>
+            <div class="text-zinc-200">Hyderabad, Telangana</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 text-xs font-mono shrink-0">
+          <a
+            href="mailto:reddynithish15@gmail.com"
+            class="px-3 py-1.5 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/30 text-emerald-200 transition-colors"
+          >
+            Mail App
+          </a>
+          <button
+            type="button"
+            onclick="toggleContactCard(false)"
+            class="px-3 py-1.5 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] text-zinc-300 transition-colors"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main id="app-main" class="relative z-10 max-w-5xl mx-auto px-5 sm:px-8 pt-12 sm:pt-20 pb-24 transition-opacity duration-300">
+    <!-- VIEW 1: WORK -->
+    <section id="view-work" class="space-y-14 sm:space-y-16">
+      <div class="max-w-3xl space-y-5">
+        <h1 class="text-4xl sm:text-6xl font-medium tracking-tight leading-[1.06] text-white">
+          Engineering intelligent systems, from
+          <span class="font-serif italic font-normal text-zinc-200">retrieval to runtime.</span>
+        </h1>
+        <p class="text-base sm:text-lg text-muted leading-relaxed max-w-2xl">
+          Generative AI engineer building RAG pipelines, LLM fine-tuning workflows, and fast CPU/GPU inference—including a cloud-deployed RAG app and a 5.5&times; ONNX speech speedup. Based in Hyderabad.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <div class="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-muted">
+          <span>Selected Work &rsquo;25&ndash;&rsquo;26</span>
+          <span class="text-zinc-300">Click any card to open case study</span>
+        </div>
+
+        <div id="work-cards-container" class="space-y-6">
+          <!-- Card 1: Synqra (Main visualizer = full RAG flow; Case study = Embedding/BM25/RRF vector space) -->
+          <article
+            id="card-synqra"
+            data-project-id="synqra"
+            role="button"
+            tabindex="0"
+            aria-label="Open Synqra case study"
+            onclick="openCaseStudyWithMorph('synqra', this)"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openCaseStudyWithMorph('synqra', this);}"
+            class="glass-card rounded-3xl p-6 sm:p-8 cursor-pointer group"
+          >
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+              <div class="lg:col-span-5 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono text-muted">
+                  <span class="text-emerald-300/90">Synqra</span>
+                  <span>&middot;</span>
+                  <span>Cloud RAG &rsquo;26</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-white group-hover:translate-x-0.5 transition-transform">
+                  Hybrid RAG with page citations &amp; AWS EC2 HTTPS deployment.
+                </h2>
+                <p class="text-sm text-muted leading-relaxed">
+                  Combines BM25 + dense vector retrieval with RRF, semantic chunking, Milvus/Zilliz, FastAPI, Flutter, Cognito auth, Nginx HTTPS with auto-renewal, and CloudWatch monitoring.
+                </p>
+                <div id="inline-stack-synqra" class="flex flex-wrap gap-1.5 pt-1"></div>
+                <div class="pt-1">
+                  <span class="open-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.07] border border-white/[0.14] text-xs font-mono text-white">
+                    <span>Open Case Study</span>
+                    <span aria-hidden="true">&nearr;</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-7">
+                <div class="viz-stage relative w-full h-[230px] sm:h-[255px] lg:h-[270px] rounded-2xl overflow-hidden">
+                  <div class="absolute top-3 left-3.5 z-10 flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-muted/90 bg-obsidian/75 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/[0.08]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    <span>RAG Pipeline &middot; Ingest &middot; Chunk &middot; RRF &middot; HTTPS</span>
+                  </div>
+                  <div class="absolute bottom-3 right-3.5 z-10 text-[10px] font-mono text-zinc-200 bg-obsidian/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/[0.12] group-hover:border-white/25 transition-colors">
+                    Click card &rarr;
+                  </div>
+                  <canvas
+                    id="canvas-card-synqra"
+                    data-viz="rag_flow"
+                    class="block w-full h-full"
+                  ></canvas>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: Speech Inference Optimization -->
+          <article
+            id="card-speech"
+            data-project-id="speech"
+            role="button"
+            tabindex="0"
+            aria-label="Open Speech Inference Engine case study"
+            onclick="openCaseStudyWithMorph('speech', this)"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openCaseStudyWithMorph('speech', this);}"
+            class="glass-card rounded-3xl p-6 sm:p-8 cursor-pointer group"
+          >
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+              <div class="lg:col-span-5 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono text-muted">
+                  <span class="text-sky-300/90">Speech Inference Engine</span>
+                  <span>&middot;</span>
+                  <span>Cloud Security Web &rsquo;26</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-white group-hover:translate-x-0.5 transition-transform">
+                  5.5&times; faster CPU speech inference with ONNX Runtime.
+                </h2>
+                <p class="text-sm text-muted leading-relaxed">
+                  Cut Parakeet TDT 0.6B speech latency from 2,409 ms to 435 ms and SymSpell post-processing from 2,330 ms to 282 ms, alongside WER &amp; diarization evaluation.
+                </p>
+                <div id="inline-stack-speech" class="flex flex-wrap gap-1.5 pt-1"></div>
+                <div class="pt-1">
+                  <span class="open-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.07] border border-white/[0.14] text-xs font-mono text-white">
+                    <span>Open Case Study</span>
+                    <span aria-hidden="true">&nearr;</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-7">
+                <div class="viz-stage relative w-full h-[230px] sm:h-[255px] lg:h-[270px] rounded-2xl overflow-hidden">
+                  <div class="absolute top-3 left-3.5 z-10 flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-muted/90 bg-obsidian/75 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/[0.08]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                    <span>ONNX CPU Latency &middot; 2409ms &rarr; 435ms</span>
+                  </div>
+                  <div class="absolute bottom-3 right-3.5 z-10 text-[10px] font-mono text-zinc-200 bg-obsidian/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/[0.12] group-hover:border-white/25 transition-colors">
+                    Click card &rarr;
+                  </div>
+                  <canvas
+                    id="canvas-card-speech"
+                    data-viz="speech"
+                    class="block w-full h-full"
+                  ></canvas>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3: MCP Tools & Reflective Coding Agent -->
+          <article
+            id="card-mcp"
+            data-project-id="mcp"
+            role="button"
+            tabindex="0"
+            aria-label="Open MCP Tools and Reflective Agent case study"
+            onclick="openCaseStudyWithMorph('mcp', this)"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openCaseStudyWithMorph('mcp', this);}"
+            class="glass-card rounded-3xl p-6 sm:p-8 cursor-pointer group"
+          >
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+              <div class="lg:col-span-5 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono text-muted">
+                  <span class="text-indigo-300/90">MCP Tools &amp; Reflective Agent</span>
+                  <span>&middot;</span>
+                  <span>Agentic Systems &rsquo;25</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-white group-hover:translate-x-0.5 transition-transform">
+                  Custom MCP utilities &amp; self-refining coding loops.
+                </h2>
+                <p class="text-sm text-muted leading-relaxed">
+                  Built Claude MCP tools for local file counting, PDF Q&amp;A, chat saving, greeting, and link threat checks, paired with a generate-evaluate-refine coding agent.
+                </p>
+                <div id="inline-stack-mcp" class="flex flex-wrap gap-1.5 pt-1"></div>
+                <div class="pt-1">
+                  <span class="open-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.07] border border-white/[0.14] text-xs font-mono text-white">
+                    <span>Open Case Study</span>
+                    <span aria-hidden="true">&nearr;</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-7">
+                <div class="viz-stage relative w-full h-[230px] sm:h-[255px] lg:h-[270px] rounded-2xl overflow-hidden">
+                  <div class="absolute top-3 left-3.5 z-10 flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-muted/90 bg-obsidian/75 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/[0.08]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                    <span>MCP Host/Client/Server &middot; Generate &rarr; Critique &rarr; Refine</span>
+                  </div>
+                  <div class="absolute bottom-3 right-3.5 z-10 text-[10px] font-mono text-zinc-200 bg-obsidian/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/[0.12] group-hover:border-white/25 transition-colors">
+                    Click card &rarr;
+                  </div>
+                  <canvas
+                    id="canvas-card-mcp"
+                    data-viz="mcp_flow"
+                    class="block w-full h-full"
+                  ></canvas>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4: Distributed LLM Fine-Tuning & Clinical ASR -->
+          <article
+            id="card-distributed"
+            data-project-id="distributed"
+            role="button"
+            tabindex="0"
+            aria-label="Open Fine-Tuning and Clinical ASR case study"
+            onclick="openCaseStudyWithMorph('distributed', this)"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openCaseStudyWithMorph('distributed', this);}"
+            class="glass-card rounded-3xl p-6 sm:p-8 cursor-pointer group"
+          >
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+              <div class="lg:col-span-5 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono text-muted">
+                  <span class="text-amber-300/90">Fine-Tuning &amp; Clinical ASR</span>
+                  <span>&middot;</span>
+                  <span>Viswam &amp; Digi Quanta &rsquo;25</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-white group-hover:translate-x-0.5 transition-transform">
+                  4-bit QLoRA tuning, Petals swarm &amp; Telugu clinical AI.
+                </h2>
+                <p class="text-sm text-muted leading-relaxed">
+                  Fine-tuned Qwen 2.5 0.5B with Unsloth on 2&times; T4 GPUs, explored Petals distributed inference, and built Telugu ASR, clinical prompts, and Flutter/Streamlit apps.
+                </p>
+                <div id="inline-stack-distributed" class="flex flex-wrap gap-1.5 pt-1"></div>
+                <div class="pt-1">
+                  <span class="open-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.07] border border-white/[0.14] text-xs font-mono text-white">
+                    <span>Open Case Study</span>
+                    <span aria-hidden="true">&nearr;</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-7">
+                <div class="viz-stage relative w-full h-[230px] sm:h-[255px] lg:h-[270px] rounded-2xl overflow-hidden">
+                  <div class="absolute top-3 left-3.5 z-10 flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-muted/90 bg-obsidian/75 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/[0.08]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                    <span>4-Bit QLoRA Loss &middot; Petals Swarm</span>
+                  </div>
+                  <div class="absolute bottom-3 right-3.5 z-10 text-[10px] font-mono text-zinc-200 bg-obsidian/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/[0.12] group-hover:border-white/25 transition-colors">
+                    Click card &rarr;
+                  </div>
+                  <canvas
+                    id="canvas-card-distributed"
+                    data-viz="distributed"
+                    class="block w-full h-full"
+                  ></canvas>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 5: Verilog Waveform VS Code Extension -->
+          <article
+            id="card-verilog"
+            data-project-id="verilog"
+            role="button"
+            tabindex="0"
+            aria-label="Open Verilog Waveform Extension case study"
+            onclick="openCaseStudyWithMorph('verilog', this)"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openCaseStudyWithMorph('verilog', this);}"
+            class="glass-card rounded-3xl p-6 sm:p-8 cursor-pointer group"
+          >
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
+              <div class="lg:col-span-5 space-y-4">
+                <div class="flex flex-wrap items-center gap-2 text-xs font-mono text-muted">
+                  <span class="text-teal-300/90">Verilog Waveform Extension</span>
+                  <span>&middot;</span>
+                  <span>VS Code &amp; Python &rsquo;25</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-white group-hover:translate-x-0.5 transition-transform">
+                  Simulated Verilog timing waveforms inside VS Code.
+                </h2>
+                <p class="text-sm text-muted leading-relaxed">
+                  Translates Verilog logic into Python simulation scripts and renders clean Matplotlib digital waveforms directly inside VS Code without anomalies.
+                </p>
+                <div id="inline-stack-verilog" class="flex flex-wrap gap-1.5 pt-1"></div>
+                <div class="pt-1">
+                  <span class="open-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.07] border border-white/[0.14] text-xs font-mono text-white">
+                    <span>Open Case Study</span>
+                    <span aria-hidden="true">&nearr;</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="lg:col-span-7">
+                <div class="viz-stage relative w-full h-[230px] sm:h-[255px] lg:h-[270px] rounded-2xl overflow-hidden">
+                  <div class="absolute top-3 left-3.5 z-10 flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-muted/90 bg-obsidian/75 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/[0.08]">
+                    <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
+                    <span>Verilog &rarr; Python &rarr; Matplotlib Signals</span>
+                  </div>
+                  <div class="absolute bottom-3 right-3.5 z-10 text-[10px] font-mono text-zinc-200 bg-obsidian/80 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/[0.12] group-hover:border-white/25 transition-colors">
+                    Click card &rarr;
+                  </div>
+                  <canvas
+                    id="canvas-card-verilog"
+                    data-viz="verilog"
+                    class="block w-full h-full"
+                  ></canvas>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Compact Applied Experiments Strip -->
+      <div class="space-y-4 pt-2">
+        <div class="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-muted">
+          <span>Additional Builds &amp; Experiments</span>
+          <span>2025</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="glass-card rounded-2xl p-5 space-y-2">
+            <div class="text-xs font-mono text-emerald-300/90">Local Agentic RAG</div>
+            <h3 class="text-base font-medium text-white">Offline Retrieval Agent</h3>
+            <p class="text-xs text-muted leading-relaxed">
+              Built an agentic RAG workflow locally using a local LLM for private document querying and multi-step retrieval.
+            </p>
+          </div>
+          <div class="glass-card rounded-2xl p-5 space-y-2">
+            <div class="text-xs font-mono text-sky-300/90">Video Lip Sync &amp; Streamlit</div>
+            <h3 class="text-base font-medium text-white">Audio-to-Video Lip Sync UI</h3>
+            <p class="text-xs text-muted leading-relaxed">
+              Implemented audio-driven lip synchronization on photos/videos and built a Streamlit showcase app for video generation.
+            </p>
+          </div>
+          <div class="glass-card rounded-2xl p-5 space-y-2">
+            <div class="text-xs font-mono text-indigo-300/90">GitLab API &amp; Progress Web</div>
+            <h3 class="text-base font-medium text-white">Intern Tracker &amp; Notion-Style Log</h3>
+            <p class="text-xs text-muted leading-relaxed">
+              Created a Python/Shell GitLab API wrapper to verify onboarding and track intern progress, plus a personal learning tracker site.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive 3D Tech Stack Section -->
+      <div id="tech-stack-section" class="space-y-5 pt-2">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div>
+            <div class="text-xs font-mono uppercase tracking-widest text-muted">Technical Stack</div>
+            <p class="text-sm text-muted mt-1">
+              Outlined logos &amp; interactive 3D glass cards across LLMs, retrieval, inference, cloud, and coding agents.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <div
+              id="tech-category-filters"
+              role="group"
+              aria-label="Filter technologies by category"
+              class="flex flex-wrap items-center gap-1.5"
+            ></div>
+          </div>
+        </div>
+
+        <div id="tech-stack-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5"></div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: CASE STUDY DETAIL -->
+    <section id="view-case-study" class="hidden space-y-10">
+      <div class="flex items-center justify-between gap-4">
+        <button
+          type="button"
+          id="back-to-work-btn"
+          onclick="closeCaseStudyWithMorph()"
+          class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] text-xs font-mono text-zinc-200 transition-colors"
+        >
+          <span aria-hidden="true">&larr;</span>
+          <span>Back to Work</span>
+        </button>
+        <span id="case-breadcrumb" class="text-xs font-mono text-muted">Case Study</span>
+      </div>
+
+      <div id="case-study-content" class="space-y-10"></div>
+    </section>
+
+    <!-- VIEW 3: INFO / RESUME -->
+    <section id="view-info" class="hidden space-y-14">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="lg:col-span-7 space-y-5">
+          <div class="text-xs font-mono uppercase tracking-widest text-muted">About &amp; Profile</div>
+          <h1 class="text-3xl sm:text-5xl font-medium tracking-tight leading-[1.1] text-white">
+            Reddyvari Nithish Kumar Reddy
+          </h1>
+          <p class="text-base text-muted leading-relaxed">
+            Generative AI engineer focused on Retrieval-Augmented Generation (RAG), LLM fine-tuning (LoRA/QLoRA), and inference optimization. Experienced shipping cloud-deployed RAG systems on AWS EC2, accelerating CPU speech inference 5.5&times; with ONNX Runtime, and building agentic tooling with MCP and local/hosted LLMs.
+          </p>
+          <p class="text-sm text-muted leading-relaxed">
+            Open to Generative AI Engineer, Applied LLM, and ML Systems roles. B.Tech in Electronics &amp; Communication Engineering from Vignana Bharathi Institute of Technology, Hyderabad.
+          </p>
+        </div>
+
+        <div class="lg:col-span-5 glass-card rounded-3xl p-6 space-y-4">
+          <div class="text-xs font-mono uppercase tracking-widest text-muted">Contact &amp; Links</div>
+          <div class="space-y-3 text-sm">
+            <div class="flex items-center justify-between gap-2 py-2 border-b border-white/[0.07]">
+              <span class="text-muted">Email</span>
+              <button
+                type="button"
+                onclick="copyText('reddynithish15@gmail.com', 'Email copied')"
+                class="text-zinc-100 hover:text-white font-mono text-xs underline decoration-white/25 underline-offset-4"
+              >
+                reddynithish15@gmail.com
+              </button>
+            </div>
+            <div class="flex items-center justify-between gap-2 py-2 border-b border-white/[0.07]">
+              <span class="text-muted">Location</span>
+              <span class="text-zinc-200 text-xs">Hyderabad, Telangana, India</span>
+            </div>
+            <div class="flex items-center gap-4 pt-1 text-xs font-mono">
+              <a
+                href="https://github.com/nithishkumar2022020"
+                target="_blank"
+                rel="noreferrer"
+                class="text-zinc-200 hover:text-white underline decoration-white/30 underline-offset-4"
+              >
+                GitHub &nearr;
+              </a>
+              <a
+                href="https://www.linkedin.com/in/reddyvari-nithish-kumar-reddy"
+                target="_blank"
+                rel="noreferrer"
+                class="text-zinc-200 hover:text-white underline decoration-white/30 underline-offset-4"
+              >
+                LinkedIn &nearr;
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience Timeline -->
+      <div class="space-y-5">
+        <div class="text-xs font-mono uppercase tracking-widest text-muted">Experience</div>
+        <div class="space-y-4">
+          <div class="glass-card rounded-2xl p-6 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <div>
+                <h3 class="text-lg font-medium text-white">Associate Software Engineer &middot; Cloud Security Web LLC</h3>
+                <p class="text-xs text-muted">Remote</p>
+              </div>
+              <span class="text-xs font-mono text-muted">Mar 2026 &ndash; Aug 2026</span>
+            </div>
+            <ul class="list-disc list-inside text-sm text-muted space-y-1.5 leading-relaxed">
+              <li>Optimized CPU speech inference with ONNX Runtime, cutting latency from 2,409 ms to 435 ms (~5.5&times;) and SymSpell post-processing from 2,330 ms to 282 ms.</li>
+              <li>Exported Parakeet TDT 0.6B to ONNX on CPU vs. PyTorch baseline; built a reusable speech evaluation suite for WER, medical entity accuracy, quantization, latency, and regressions.</li>
+              <li>Benchmarked Parakeet, MedASR, and Nemotron (Parakeet TDT v2 Q8_0 achieved 14.03% medical WER and 1.59% LibriSpeech WER); added speaker diarization and Azure Container Apps / Service Bus workers.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card rounded-2xl p-6 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <div>
+                <h3 class="text-lg font-medium text-white">Machine Learning Intern &middot; Viswam</h3>
+                <p class="text-xs text-muted">LLM Fine-Tuning, Label Studio &amp; GitLab Automation</p>
+              </div>
+              <span class="text-xs font-mono text-muted">Mar 2025 &ndash; Jun 2025</span>
+            </div>
+            <ul class="list-disc list-inside text-sm text-muted space-y-1.5 leading-relaxed">
+              <li>Defined an LLM fine-tuning workflow for Qwen 2.5 0.5B on conversational data using 4-bit Unsloth quantization and LoRA/QLoRA on Kaggle (2&times; T4 GPUs), plus distributed inference with Petals.</li>
+              <li>Built a custom Label Studio UI for audio data labeling and a Python/Shell GitLab API wrapper to verify onboarding and track intern progress.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card rounded-2xl p-6 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <div>
+                <h3 class="text-lg font-medium text-white">Machine Learning Intern &middot; Digi Quanta</h3>
+                <p class="text-xs text-muted">Telugu Clinical Assistant, ASR, Video Lip Sync &amp; Flutter/Streamlit</p>
+              </div>
+              <span class="text-xs font-mono text-muted">Mar 2025 &ndash; Jun 2025</span>
+            </div>
+            <ul class="list-disc list-inside text-sm text-muted space-y-1.5 leading-relaxed">
+              <li>Designed a system prompt for a Telugu clinical-assistant LLM, implemented Telugu ASR transcription, and built Flutter and Streamlit applications.</li>
+              <li>Implemented audio-to-photo/video lip synchronization and a Streamlit app showcasing a video generation model.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categorized Technical Skills with Outlined Logos -->
+      <div class="space-y-5">
+        <div class="text-xs font-mono uppercase tracking-widest text-muted">Technical Stack &amp; Capabilities</div>
+        <div id="info-skills-matrix" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </div>
+
+      <!-- Leadership, Certifications & Education -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div class="glass-card rounded-2xl p-6 space-y-3">
+          <div class="text-xs font-mono uppercase tracking-widest text-muted">Leadership &amp; Roles</div>
+          <ul class="text-xs text-muted space-y-2 leading-relaxed">
+            <li><span class="text-zinc-200 font-medium">IEEE VBIT SB</span> &mdash; Resource &amp; Skill Coordinator (Jun 2024&ndash;Present); CommSoc Treasurer (Aug 2023&ndash;Jun 2024)</li>
+            <li><span class="text-zinc-200 font-medium">Google Crowdsource VBIT</span> &mdash; Secretary (May 2023&ndash;Jun 2024)</li>
+            <li><span class="text-zinc-200 font-medium">DYUTHI NSS VBIT</span> &mdash; Treasurer (May 2023&ndash;Jun 2024)</li>
+          </ul>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 space-y-3">
+          <div class="text-xs font-mono uppercase tracking-widest text-muted">Certifications</div>
+          <ul class="text-xs text-muted space-y-2 leading-relaxed">
+            <li><span class="text-zinc-200 font-medium">JNCIA-Cloud</span> &mdash; Juniper Open Learning</li>
+            <li><span class="text-zinc-200 font-medium">Java Full Stack</span> &mdash; Wipro</li>
+            <li><span class="text-zinc-200 font-medium">Python Fundamentals</span> &mdash; Infosys Springboard</li>
+            <li><span class="text-zinc-200 font-medium">Android App Security</span> &mdash; CDAC &middot; <span class="text-zinc-200 font-medium">Cybersecurity</span> &mdash; Palo Alto</li>
+          </ul>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 space-y-3">
+          <div class="text-xs font-mono uppercase tracking-widest text-muted">Education</div>
+          <div class="text-xs text-muted space-y-2 leading-relaxed">
+            <div>
+              <div class="text-zinc-200 font-medium">B.Tech, ECE &middot; VBIT Hyderabad</div>
+              <div>Nov 2021 &ndash; Present</div>
+            </div>
+            <div>
+              <div class="text-zinc-200 font-medium">Intermediate &middot; Sri Chaitanya Junior Kalasala</div>
+              <div>Sep 2019 &ndash; Mar 2021</div>
+            </div>
+            <div>
+              <div class="text-zinc-200 font-medium">High School &middot; Sri Chaitanya Olympiad School</div>
+              <div>Jan 2012 &ndash; Jul 2019</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 border-t border-white/[0.06] bg-obsidian/85">
+    <div class="max-w-5xl mx-auto px-5 sm:px-8 pt-10 pb-8 space-y-8">
+      <!-- Let's Connect Block -->
+      <div class="glass-card rounded-3xl p-6 sm:p-7 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div class="space-y-1.5">
+          <div class="text-xs font-mono uppercase tracking-widest text-emerald-300/90">Let&rsquo;s Connect</div>
+          <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-white">
+            Reddyvari Nithish Kumar Reddy
+          </h2>
+          <p class="text-sm text-muted">
+            Generative AI Engineer &middot; Open to GenAI, LLM Systems &amp; Inference roles &middot; Hyderabad, Telangana, India
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2.5 text-xs font-mono">
+          <button
+            type="button"
+            onclick="copyText('reddynithish15@gmail.com', 'Email copied: reddynithish15@gmail.com')"
+            class="px-3.5 py-2 rounded-full bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/35 text-emerald-200 transition-colors"
+          >
+            Copy Email &middot; reddynithish15@gmail.com
+          </button>
+          <a
+            href="https://github.com/nithishkumar2022020"
+            target="_blank"
+            rel="noreferrer"
+            class="px-3.5 py-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.12] text-zinc-100 transition-colors"
+          >
+            GitHub &nearr;
+          </a>
+          <a
+            href="https://www.linkedin.com/in/reddyvari-nithish-kumar-reddy"
+            target="_blank"
+            rel="noreferrer"
+            class="px-3.5 py-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.12] text-zinc-100 transition-colors"
+          >
+            LinkedIn &nearr;
+          </a>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted">
+        <div>&copy; 2026 Reddyvari Nithish Kumar Reddy. Built with care &amp; strong filter coffee.</div>
+        <div class="flex items-center gap-5 font-mono">
+          <a href="mailto:reddynithish15@gmail.com" class="hover:text-white transition-colors">reddynithish15@gmail.com</a>
+          <span>&middot;</span>
+          <a href="https://github.com/nithishkumar2022020" target="_blank" rel="noreferrer" class="hover:text-white transition-colors">GitHub</a>
+          <span>&middot;</span>
+          <a href="https://www.linkedin.com/in/reddyvari-nithish-kumar-reddy" target="_blank" rel="noreferrer" class="hover:text-white transition-colors">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Outlined SVG logo library matching the dark obsidian & glass theme
+    const TECH_ICONS = {
+      PyTorch: {
+        name: 'PyTorch',
+        categories: ['Inference & ML'],
+        sub: 'Tensors & Training',
+        glow: 'rgba(251, 146, 60, 0.16)',
+        glowStrong: 'rgba(251, 146, 60, 0.55)',
+        border: 'rgba(251, 146, 60, 0.35)',
+        shadow: 'rgba(249, 115, 22, 0.22)',
+        svg: '<path d="M12 4.5 6.8 9.7a7.35 7.35 0 0 0 0 10.4 7.35 7.35 0 0 0 10.4 0 7.35 7.35 0 0 0 0-10.4L15 7.5"/><circle cx="15" cy="7.5" r="1.4"/>',
+      },
+      'ONNX Runtime': {
+        name: 'ONNX Runtime',
+        categories: ['Inference & ML'],
+        sub: '5.5x CPU Execution',
+        glow: 'rgba(56, 189, 248, 0.16)',
+        glowStrong: 'rgba(56, 189, 248, 0.55)',
+        border: 'rgba(56, 189, 248, 0.35)',
+        shadow: 'rgba(14, 165, 233, 0.22)',
+        svg: '<polygon points="12 3.5 19.5 7.8 19.5 16.2 12 20.5 4.5 16.2 4.5 7.8"/><path d="M8.5 12h7M12 8.5v7"/>',
+      },
+      LangChain: {
+        name: 'LangChain',
+        categories: ['GenAI & LLM'],
+        sub: 'Chains & Agents',
+        glow: 'rgba(52, 211, 153, 0.16)',
+        glowStrong: 'rgba(52, 211, 153, 0.55)',
+        border: 'rgba(52, 211, 153, 0.35)',
+        shadow: 'rgba(16, 185, 129, 0.22)',
+        svg: '<rect x="3.5" y="8.5" width="7.5" height="7" rx="3.5"/><rect x="13" y="8.5" width="7.5" height="7" rx="3.5"/><path d="M9.5 12h5"/>',
+      },
+      Ollama: {
+        name: 'Ollama',
+        categories: ['GenAI & LLM', 'Inference & ML'],
+        sub: 'Local LLM Runtime',
+        glow: 'rgba(228, 228, 231, 0.14)',
+        glowStrong: 'rgba(255, 255, 255, 0.5)',
+        border: 'rgba(255, 255, 255, 0.28)',
+        shadow: 'rgba(255, 255, 255, 0.16)',
+        svg: '<path d="M7.5 19.5v-5.2c0-3.2 2-5.8 4.5-5.8s4.5 2.6 4.5 5.8v5.2"/><circle cx="10.3" cy="11.5" r="0.9"/><circle cx="13.7" cy="11.5" r="0.9"/><path d="M10.5 14.5c.8.7 2.2.7 3 0"/>',
+      },
+      vLLM: {
+        name: 'vLLM',
+        categories: ['Inference & ML'],
+        sub: 'PagedAttention Serving',
+        glow: 'rgba(129, 140, 248, 0.16)',
+        glowStrong: 'rgba(129, 140, 248, 0.55)',
+        border: 'rgba(129, 140, 248, 0.35)',
+        shadow: 'rgba(99, 102, 241, 0.22)',
+        svg: '<path d="m4.5 7 4.2 10L13 7"/><path d="M15.5 7v10h4"/>',
+      },
+      MCP: {
+        name: 'MCP',
+        categories: ['GenAI & LLM'],
+        sub: 'Model Context Protocol',
+        glow: 'rgba(167, 139, 250, 0.16)',
+        glowStrong: 'rgba(167, 139, 250, 0.55)',
+        border: 'rgba(167, 139, 250, 0.35)',
+        shadow: 'rgba(139, 92, 246, 0.22)',
+        svg: '<circle cx="12" cy="12" r="3.2"/><path d="M12 4v4.8M12 15.2V20M4 12h4.8M15.2 12H20"/>',
+      },
+      'Claude Code': {
+        name: 'Claude Code',
+        categories: ['GenAI & LLM'],
+        sub: 'Agentic CLI Coding',
+        glow: 'rgba(251, 191, 36, 0.16)',
+        glowStrong: 'rgba(251, 191, 36, 0.55)',
+        border: 'rgba(251, 191, 36, 0.34)',
+        shadow: 'rgba(245, 158, 11, 0.22)',
+        svg: '<rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="m7.5 10 2.5 2.5-2.5 2.5M12.5 15h4"/>',
+      },
+      Antigravity: {
+        name: 'Antigravity',
+        categories: ['GenAI & LLM'],
+        sub: 'Agentic IDE & Workflows',
+        glow: 'rgba(129, 140, 248, 0.16)',
+        glowStrong: 'rgba(129, 140, 248, 0.55)',
+        border: 'rgba(129, 140, 248, 0.34)',
+        shadow: 'rgba(99, 102, 241, 0.22)',
+        svg: '<path d="M12 3.5c-3.8 4.2-5.5 8-5.5 11.5 0 2.5 1.8 4.5 4 5.5"/><path d="M12 3.5c3.8 4.2 5.5 8 5.5 11.5 0 2.5-1.8 4.5-4 5.5"/><path d="M7.5 14.5h9M12 18v3.5"/>',
+      },
+      Codex: {
+        name: 'Codex',
+        categories: ['GenAI & LLM', 'Languages'],
+        sub: 'Code Synthesis & Agents',
+        glow: 'rgba(52, 211, 153, 0.16)',
+        glowStrong: 'rgba(52, 211, 153, 0.55)',
+        border: 'rgba(52, 211, 153, 0.34)',
+        shadow: 'rgba(16, 185, 129, 0.22)',
+        svg: '<path d="m8.5 8-4 4 4 4M15.5 8l4 4-4 4"/><path d="m13.5 6.5-3 11"/>',
+      },
+      Milvus: {
+        name: 'Milvus',
+        categories: ['Retrieval'],
+        sub: 'Vector Indexing',
+        glow: 'rgba(45, 212, 191, 0.16)',
+        glowStrong: 'rgba(45, 212, 191, 0.55)',
+        border: 'rgba(45, 212, 191, 0.35)',
+        shadow: 'rgba(20, 184, 166, 0.22)',
+        svg: '<path d="M6 19V5l6 7 6-7v14"/><path d="M9.5 15.5 12 12l2.5 3.5"/>',
+      },
+      'Zilliz Cloud': {
+        name: 'Zilliz Cloud',
+        categories: ['Retrieval'],
+        sub: 'Managed Vector DB',
+        glow: 'rgba(52, 211, 153, 0.16)',
+        glowStrong: 'rgba(52, 211, 153, 0.55)',
+        border: 'rgba(52, 211, 153, 0.35)',
+        shadow: 'rgba(16, 185, 129, 0.22)',
+        svg: '<ellipse cx="12" cy="6.5" rx="7" ry="2.6"/><path d="M5 6.5v11c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6v-11"/><path d="M5 12c0 1.4 3.1 2.6 7 2.6s7-1.2 7-2.6"/>',
+      },
+      'BM25 / Hybrid RRF': {
+        name: 'BM25 / Hybrid RRF',
+        categories: ['Retrieval'],
+        sub: 'Sparse + Dense Fusion',
+        glow: 'rgba(56, 189, 248, 0.16)',
+        glowStrong: 'rgba(56, 189, 248, 0.55)',
+        border: 'rgba(56, 189, 248, 0.35)',
+        shadow: 'rgba(14, 165, 233, 0.22)',
+        svg: '<circle cx="10.5" cy="10.5" r="5.5"/><path d="m14.8 14.8 4.7 4.7"/><path d="M8.5 10.5h4M10.5 8.5v4"/>',
+      },
+      PostgreSQL: {
+        name: 'PostgreSQL',
+        categories: ['Retrieval', 'Cloud & DevOps'],
+        sub: 'Relational & SQL',
+        glow: 'rgba(96, 165, 250, 0.16)',
+        glowStrong: 'rgba(96, 165, 250, 0.55)',
+        border: 'rgba(96, 165, 250, 0.35)',
+        shadow: 'rgba(59, 130, 246, 0.22)',
+        svg: '<ellipse cx="12" cy="7" rx="6.5" ry="3"/><path d="M5.5 7v9.5c0 1.7 2.9 3 6.5 3s6.5-1.3 6.5-3V7"/><path d="M12 10v9.5"/>',
+      },
+      AWS: {
+        name: 'AWS',
+        categories: ['Cloud & DevOps'],
+        sub: 'EC2 · Cognito · CloudWatch',
+        glow: 'rgba(251, 191, 36, 0.16)',
+        glowStrong: 'rgba(251, 191, 36, 0.55)',
+        border: 'rgba(251, 191, 36, 0.35)',
+        shadow: 'rgba(245, 158, 11, 0.22)',
+        svg: '<polygon points="12 4 18.5 7.8 18.5 16.2 12 20 5.5 16.2 5.5 7.8"/><path d="M5.5 7.8 12 11.8l6.5-4M12 11.8V20"/>',
+      },
+      Docker: {
+        name: 'Docker',
+        categories: ['Cloud & DevOps'],
+        sub: 'Containers & Compose',
+        glow: 'rgba(56, 189, 248, 0.16)',
+        glowStrong: 'rgba(56, 189, 248, 0.55)',
+        border: 'rgba(56, 189, 248, 0.35)',
+        shadow: 'rgba(14, 165, 233, 0.22)',
+        svg: '<path d="M3.5 13.5c1.2 3.4 4.2 5 8.5 5 5.1 0 8.5-2.8 9-6.6-1.4-.4-2.8.1-3.5 1.1H4.2z"/><rect x="6.5" y="8" width="2.6" height="2.4" rx="0.4"/><rect x="10.2" y="8" width="2.6" height="2.4" rx="0.4"/><rect x="13.9" y="8" width="2.6" height="2.4" rx="0.4"/><rect x="10.2" y="5" width="2.6" height="2.4" rx="0.4"/>',
+      },
+      Nginx: {
+        name: 'Nginx',
+        categories: ['Cloud & DevOps'],
+        sub: 'Reverse Proxy & TLS',
+        glow: 'rgba(52, 211, 153, 0.16)',
+        glowStrong: 'rgba(52, 211, 153, 0.55)',
+        border: 'rgba(52, 211, 153, 0.35)',
+        shadow: 'rgba(16, 185, 129, 0.22)',
+        svg: '<polygon points="12 3.5 19.5 7.8 19.5 16.2 12 20.5 4.5 16.2 4.5 7.8"/><path d="M8.8 15.2V8.8l6.4 6.4V8.8"/>',
+      },
+      'GitHub Actions': {
+        name: 'GitHub Actions',
+        categories: ['Cloud & DevOps'],
+        sub: 'CI/CD & GHCR',
+        glow: 'rgba(192, 132, 252, 0.16)',
+        glowStrong: 'rgba(192, 132, 252, 0.55)',
+        border: 'rgba(192, 132, 252, 0.35)',
+        shadow: 'rgba(168, 85, 247, 0.22)',
+        svg: '<circle cx="12" cy="12" r="7.5"/><path d="m10.5 8.8 4.2 3.2-4.2 3.2z"/>',
+      },
+      Azure: {
+        name: 'Azure',
+        categories: ['Cloud & DevOps'],
+        sub: 'Container Apps & Bus',
+        glow: 'rgba(96, 165, 250, 0.16)',
+        glowStrong: 'rgba(96, 165, 250, 0.55)',
+        border: 'rgba(96, 165, 250, 0.35)',
+        shadow: 'rgba(59, 130, 246, 0.22)',
+        svg: '<path d="M12.8 4.5 6.5 16.5l4.2.5 5.2-10.2z"/><path d="m13.5 11.5-3 7.5h8.5z"/>',
+      },
+      Python: {
+        name: 'Python',
+        categories: ['Languages'],
+        sub: 'ML, APIs & Tooling',
+        glow: 'rgba(250, 204, 21, 0.16)',
+        glowStrong: 'rgba(250, 204, 21, 0.55)',
+        border: 'rgba(250, 204, 21, 0.35)',
+        shadow: 'rgba(234, 179, 8, 0.22)',
+        svg: '<path d="M12 4c-3.5 0-4 1.6-4 3.5v2h4.5v.8H6.5C4.5 10.3 4 11.7 4 14s.6 3.7 2.5 3.7H8v-2.2c0-1.6 1.3-2.8 2.9-2.8h4.2c1.4 0 2.4-1.1 2.4-2.5V7.5C17.5 5.5 15.8 4 12 4z"/><circle cx="9.8" cy="6.4" r="0.8"/><circle cx="14.2" cy="17.6" r="0.8"/>',
+      },
+      FastAPI: {
+        name: 'FastAPI',
+        categories: ['Languages', 'Cloud & DevOps'],
+        sub: 'Async Python APIs',
+        glow: 'rgba(45, 212, 191, 0.16)',
+        glowStrong: 'rgba(45, 212, 191, 0.55)',
+        border: 'rgba(45, 212, 191, 0.35)',
+        shadow: 'rgba(20, 184, 166, 0.22)',
+        svg: '<circle cx="12" cy="12" r="8"/><path d="m12.8 7-4 5.5h3.2L11.2 17l4-5.5H12z"/>',
+      },
+      Flutter: {
+        name: 'Flutter',
+        categories: ['Languages'],
+        sub: 'Cross-Platform UI',
+        glow: 'rgba(56, 189, 248, 0.16)',
+        glowStrong: 'rgba(56, 189, 248, 0.55)',
+        border: 'rgba(56, 189, 248, 0.35)',
+        shadow: 'rgba(14, 165, 233, 0.22)',
+        svg: '<path d="M14.5 4 6 12.5l3 3L20.5 4z"/><path d="m11 13.5-3.5 3.5L14.5 20h6l-6.5-6.5z"/>',
+      },
+      Streamlit: {
+        name: 'Streamlit',
+        categories: ['GenAI & LLM', 'Languages'],
+        sub: 'Interactive ML Apps',
+        glow: 'rgba(251, 113, 133, 0.16)',
+        glowStrong: 'rgba(251, 113, 133, 0.55)',
+        border: 'rgba(251, 113, 133, 0.35)',
+        shadow: 'rgba(244, 63, 94, 0.22)',
+        svg: '<path d="M4.5 14.5 12 7l7.5 7.5"/><path d="M7.5 16.5 12 12l4.5 4.5"/>',
+      },
+      Git: {
+        name: 'Git',
+        categories: ['Cloud & DevOps', 'Languages'],
+        sub: 'GitHub & GitLab CI',
+        glow: 'rgba(251, 146, 60, 0.16)',
+        glowStrong: 'rgba(251, 146, 60, 0.55)',
+        border: 'rgba(251, 146, 60, 0.35)',
+        shadow: 'rgba(249, 115, 22, 0.22)',
+        svg: '<path d="M12 3.5 20.5 12 12 20.5 3.5 12z"/><circle cx="12" cy="9" r="1.4"/><circle cx="12" cy="15" r="1.4"/><circle cx="15" cy="12" r="1.4"/><path d="M12 10.4v3.2M12 12h1.6"/>',
+      },
+    };
+
+    const TECH_ORDER = Object.keys(TECH_ICONS);
+    const TECH_CATEGORIES = ['All', 'GenAI & LLM', 'Retrieval', 'Inference & ML', 'Cloud & DevOps', 'Languages'];
+
+    const CARD_INLINE_STACKS = {
+      synqra: ['Python', 'FastAPI', 'Milvus', 'BM25 / Hybrid RRF', 'AWS', 'Docker', 'Nginx', 'Flutter'],
+      speech: ['ONNX Runtime', 'PyTorch', 'Python', 'Azure', 'Docker'],
+      mcp: ['MCP', 'Claude Code', 'LangChain', 'Python'],
+      distributed: ['PyTorch', 'Ollama', 'Flutter', 'Streamlit', 'Git'],
+      verilog: ['Python', 'Claude Code', 'Codex', 'Git'],
+    };
+
+    const INFO_SKILL_GROUPS = [
+      {
+        title: 'GenAI, Agents & Coding Tools',
+        items: ['MCP', 'LangChain', 'Ollama', 'Claude Code', 'Antigravity', 'Codex', 'Streamlit'],
+      },
+      {
+        title: 'Retrieval, Search & Databases',
+        items: ['Milvus', 'Zilliz Cloud', 'BM25 / Hybrid RRF', 'PostgreSQL'],
+      },
+      {
+        title: 'Inference, ML & Cloud',
+        items: ['PyTorch', 'ONNX Runtime', 'vLLM', 'AWS', 'Docker', 'Nginx', 'GitHub Actions', 'Azure'],
+      },
+      {
+        title: 'Languages & Frameworks',
+        items: ['Python', 'FastAPI', 'Flutter', 'Git'],
+      },
+    ];
+
+    function renderIconSvg(techName, sizeClass = 'w-4 h-4') {
+      const icon = TECH_ICONS[techName];
+      if (!icon) return '';
+      return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="${sizeClass} shrink-0" aria-hidden="true">${icon.svg}</svg>`;
+    }
+
+    function renderInlineTechBadge(techName) {
+      const icon = TECH_ICONS[techName];
+      const label = icon ? icon.name : techName;
+      return `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono text-zinc-200">${renderIconSvg(techName, 'w-3.5 h-3.5 text-zinc-300')}<span>${label}</span></span>`;
+    }
+
+    let activeTechCategory = 'All';
+
+    function renderTechCategoryFilters() {
+      const container = document.getElementById('tech-category-filters');
+      if (!container) return;
+      container.innerHTML = TECH_CATEGORIES.map((cat) => {
+        const isActive = activeTechCategory === cat;
+        return `<button type="button" onclick="setTechCategory('${cat.replace(/'/g, "\\'")}')" class="px-2.5 py-1 rounded-full text-[11px] font-mono border transition-colors ${
+          isActive
+            ? 'bg-white/[0.15] border-white/25 text-white'
+            : 'bg-white/[0.03] border-white/[0.07] text-muted hover:text-white'
+        }">${cat}</button>`;
+      }).join('');
+    }
+
+    function setTechCategory(category) {
+      activeTechCategory = category;
+      renderTechCategoryFilters();
+      renderTechStackGrid();
+    }
+
+    function renderTechStackGrid() {
+      const grid = document.getElementById('tech-stack-grid');
+      if (!grid) return;
+
+      const filtered = TECH_ORDER.filter((key) => {
+        if (activeTechCategory === 'All') return true;
+        return TECH_ICONS[key].categories.includes(activeTechCategory);
+      });
+
+      grid.innerHTML = filtered
+        .map((key) => {
+          const item = TECH_ICONS[key];
+          return `<div
+            data-tech-card
+            style="--tech-glow:${item.glow}; --tech-glow-strong:${item.glowStrong}; --tech-border:${item.border}; --tech-shadow:${item.shadow};"
+            class="tech-card relative rounded-2xl p-4 bg-white/[0.03] border border-white/[0.08] overflow-hidden select-none"
+          >
+            <div class="pointer-events-none absolute -inset-px opacity-0 hover:opacity-100 transition-opacity duration-300" style="background: radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), var(--tech-glow), transparent 70%);"></div>
+            <div class="relative z-10 flex flex-col gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-white/[0.04] border border-white/[0.1] flex items-center justify-center text-zinc-100" style="box-shadow: 0 0 18px var(--tech-glow);">
+                ${renderIconSvg(key, 'w-4 h-4')}
+              </div>
+              <div>
+                <div class="text-xs font-medium text-white">${item.name}</div>
+                <div class="text-[10px] font-mono text-muted mt-0.5">${item.sub}</div>
+              </div>
+            </div>
+          </div>`;
+        })
+        .join('');
+
+      bindTechCardTilt();
+    }
+
+    function bindTechCardTilt() {
+      const cards = document.querySelectorAll('[data-tech-card]');
+      cards.forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const px = (e.clientX - rect.left) / rect.width;
+          const py = (e.clientY - rect.top) / rect.height;
+          const rotY = (px - 0.5) * 14;
+          const rotX = (0.5 - py) * 14;
+          card.classList.add('is-tilting');
+          card.style.setProperty('--mx', `${(px * 100).toFixed(1)}%`);
+          card.style.setProperty('--my', `${(py * 100).toFixed(1)}%`);
+          card.style.transform = `perspective(700px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-2px)`;
+          card.style.borderColor = 'var(--tech-border)';
+          card.style.boxShadow = `0 16px 34px -14px var(--tech-shadow)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.classList.remove('is-tilting');
+          card.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+          card.style.borderColor = '';
+          card.style.boxShadow = '';
+        });
+      });
+    }
+
+    function renderInlineCardStacks() {
+      Object.entries(CARD_INLINE_STACKS).forEach(([projectId, stack]) => {
+        const el = document.getElementById(`inline-stack-${projectId}`);
+        if (el) {
+          el.innerHTML = stack.map(renderInlineTechBadge).join('');
+        }
+      });
+    }
+
+    function renderInfoSkillsMatrix() {
+      const container = document.getElementById('info-skills-matrix');
+      if (!container) return;
+      container.innerHTML = INFO_SKILL_GROUPS.map(
+        (group) => `<div class="glass-card rounded-2xl p-5 space-y-3">
+          <div class="text-xs font-mono uppercase tracking-wider text-zinc-300">${group.title}</div>
+          <div class="flex flex-wrap gap-2">
+            ${group.items.map(renderInlineTechBadge).join('')}
+          </div>
+        </div>`
+      ).join('');
+    }
+
+    // Case study definitions (Synqra card = full RAG flow; Synqra case study = Embedding/BM25/RRF vector space with toggle)
+    const PROJECTS = {
+      synqra: {
+        id: 'synqra',
+        tag: 'Cloud RAG \u201926',
+        title: 'Synqra \u2014 Cloud-Deployed Hybrid RAG Application (HTTPS)',
+        subtitle:
+          'End-to-end retrieval-augmented generation system combining BM25 and dense vector search with RRF, semantic chunking, page-level citations, Flutter UI, and HTTPS deployment on AWS EC2.',
+        nextId: 'speech',
+        meta: [
+          { label: 'Role', value: 'GenAI & Full-Stack Builder' },
+          { label: 'Hosting & TLS', value: 'AWS EC2 \u00b7 Nginx HTTPS' },
+          { label: 'Retrieval Eval', value: '1.00 Hit Rate / MRR / NDCG' },
+          { label: 'Answer & Cite', value: '0.67 F1 \u00b7 0.38 Cite Prec.' },
+        ],
+        vizBadge: 'Embedding, BM25 & RRF Vector Space Visualizer',
+        vizControls: [
+          { label: 'Trigger Query Pulse', action: 'triggerSynqraPulse()' },
+          { label: 'Toggle Pipeline View', action: 'toggleSynqraHeroViz()' },
+        ],
+        overview:
+          'Synqra ingests documents into semantic chunks, indexes dense embeddings and lexical BM25 signals into Milvus / Zilliz Cloud, fuses rankings via Reciprocal Rank Fusion (RRF), and serves grounded answers with page-level citations over HTTPS via FastAPI, Docker Compose, Nginx, and a Flutter client.',
+        highlights: [
+          'Implemented hybrid retrieval (BM25 + dense vectors with RRF) and semantic chunking with page-level citations.',
+          'Hosted on AWS EC2 over HTTPS using Docker Compose and Nginx with automated TLS certificate renewal, AWS Cognito JWT auth, and GitHub Actions CI/CD publishing images to GHCR.',
+          'Instrumented CloudWatch logging, infrastructure monitoring, and custom metrics for RAG latency, API performance, and vector DB operations.',
+          'Evaluated on 6 benchmark questions: achieved 1.0 hit rate, MRR, and NDCG with 0.67 answer F1, while diagnosing citation over-reporting (0.38 precision) for targeted refinement.',
+        ],
+        stack: ['Python', 'FastAPI', 'Milvus', 'Zilliz Cloud', 'BM25 / Hybrid RRF', 'AWS', 'Docker', 'Nginx', 'GitHub Actions', 'Flutter'],
+      },
+      speech: {
+        id: 'speech',
+        tag: 'Cloud Security Web \u201926',
+        title: 'Speech Inference & Post-Processing Optimization',
+        subtitle:
+          'Accelerating CPU ASR and post-processing pipelines with ONNX Runtime while building a repeatable evaluation harness for WER, medical entities, quantization, and latency.',
+        nextId: 'mcp',
+        meta: [
+          { label: 'Role', value: 'Associate Software Engineer' },
+          { label: 'Speedup', value: '2,409 ms \u2192 435 ms (~5.5\u00d7)' },
+          { label: 'Post-Process', value: 'SymSpell 2,330 \u2192 282 ms' },
+          { label: 'Parakeet Q8_0', value: '14.03% Med / 1.59% Libri WER' },
+        ],
+        vizBadge: 'ONNX CPU Latency & Benchmark Visualizer',
+        vizControls: [
+          { label: 'Latency Race', action: "setSpeechVizMode('latency')" },
+          { label: 'WER Benchmarks', action: "setSpeechVizMode('wer')" },
+        ],
+        overview:
+          'During my tenure at Cloud Security Web LLC (Mar\u2013Aug 2026), I exported Parakeet TDT 0.6B to ONNX for CPU execution, cut SymSpell spelling correction overhead, and built an automated model evaluation suite across speech recognition models.',
+        highlights: [
+          'Reduced CPU speech inference latency from 2,409 ms to 435 ms (~5.5\u00d7 speedup) and SymSpell post-processing from 2,330 ms to 282 ms.',
+          'Exported Parakeet TDT 0.6B to ONNX Runtime on CPU and benchmarked against the PyTorch baseline.',
+          'Built a reusable evaluation framework covering Word Error Rate (WER), medical entity accuracy, quantization trade-offs, latency, and regression checks.',
+          'Benchmarked Parakeet, MedASR, and Nemotron (Parakeet TDT v2 Q8_0 reached 14.03% medical WER and 1.59% LibriSpeech WER), and implemented speaker diarization post-processing with Dockerized workers on Azure Container Apps and Service Bus.',
+        ],
+        stack: ['ONNX Runtime', 'PyTorch', 'Python', 'Azure', 'Docker'],
+      },
+      mcp: {
+        id: 'mcp',
+        tag: 'Agentic Systems \u201925',
+        title: 'Custom MCP Tools & Reflective Coding Agent',
+        subtitle:
+          'Extending Claude with structured Model Context Protocol tools and building an iterative generate-evaluate-refine coding assistant.',
+        nextId: 'distributed',
+        meta: [
+          { label: 'Protocol', value: 'Model Context Protocol (MCP)' },
+          { label: 'MCP Tools', value: '5 Local & Security Utilities' },
+          { label: 'Agent Pattern', value: 'Generate \u2192 Critique \u2192 Refine' },
+          { label: 'Stack', value: 'Python \u00b7 Claude Code \u2017 LangChain' },
+        ],
+        vizBadge: 'Reflective Ring & Tool Loop Visualizer',
+        vizControls: [
+          { label: 'Advance Cycle', action: 'stepMcpCycle()' },
+          { label: 'Toggle MCP/Ring View', action: 'toggleMcpHeroViz()' },
+        ],
+        overview:
+          'Focused on practical agent reliability: wiring deterministic local tools through MCP so assistants can inspect directories, answer questions from local PDFs, save session transcripts, greet users, and check links for vulnerabilities, paired with a reflective coding loop.',
+        highlights: [
+          'Implemented 5 Claude MCP tools: Greeter (initialization greeting), File Counter (directory file counts), Chat Saver (session persistence), Local PDF File Analysis (local PDF Q&A), and Vulnerability Checker (link threat inspection).',
+          'Built a reflective coding assistant using an iterative generate-evaluate-refine loop to catch logic flaws and improve output quality.',
+          'Explored local agentic RAG workflows to combine tool use with grounded retrieval.',
+        ],
+        stack: ['MCP', 'Claude Code', 'Antigravity', 'Codex', 'LangChain', 'Python'],
+      },
+      distributed: {
+        id: 'distributed',
+        tag: 'Viswam & Digi Quanta \u201925',
+        title: '4-Bit QLoRA Fine-Tuning, Petals Swarm & Telugu Clinical AI',
+        subtitle:
+          'Fine-tuning quantized LLMs on dual T4 GPUs, experimenting with distributed Petals inference, and building Telugu speech & clinical assistant demos.',
+        nextId: 'verilog',
+        meta: [
+          { label: 'Fine-Tuning', value: 'Qwen 2.5 0.5B \u00b7 4-Bit QLoRA' },
+          { label: 'Hardware', value: 'Unsloth \u00b7 2\u00d7 T4 \u00b7 Petals' },
+          { label: 'Localization', value: 'Telugu Clinical LLM & ASR' },
+          { label: 'Interfaces', value: 'Flutter \u00b7 Streamlit \u00b7 Label Studio' },
+        ],
+        vizBadge: '4-Bit QLoRA Loss & Petals Swarm Visualizer',
+        vizControls: [
+          { label: 'Pulse Swarm', action: 'pulseDistributedSwarm()' },
+        ],
+        overview:
+          'Across internships at Viswam and Digi Quanta, I worked on memory-efficient LLM fine-tuning and distributed inference alongside Telugu clinical assistant prompting, ASR, video lip-sync, and data labeling tools.',
+        highlights: [
+          'Built an LLM fine-tuning workflow for Qwen 2.5 0.5B on conversational data using 4-bit Unsloth quantization and LoRA/QLoRA on Kaggle (2\u00d7 T4 GPUs), and set up distributed inference with Petals.',
+          'Created a custom Label Studio UI for audio data labeling and a Python/Shell GitLab API wrapper to verify onboarding and track intern progress.',
+          'Designed a Telugu clinical-assistant system prompt, explored Telugu ASR, built Flutter and Streamlit apps, and implemented audio-driven video lip synchronization.',
+        ],
+        stack: ['PyTorch', 'Ollama', 'Flutter', 'Streamlit', 'Git', 'Python'],
+      },
+      verilog: {
+        id: 'verilog',
+        tag: 'VS Code & Python \u201925',
+        title: 'Verilog Waveform Simulation Extension for VS Code',
+        subtitle:
+          'Translating Verilog hardware descriptions into Python simulations and plotting clean timing waveforms directly inside Visual Studio Code.',
+        nextId: 'synqra',
+        meta: [
+          { label: 'Editor', value: 'Visual Studio Code Extension' },
+          { label: 'Pipeline', value: 'Verilog \u2192 Python \u2192 Matplotlib' },
+          { label: 'Signal Fidelity', value: 'Anomaly-Free Waveforms' },
+          { label: 'Domain', value: 'Digital Logic & EDA Tooling' },
+        ],
+        vizBadge: 'Digital Timing Diagram Visualizer',
+        vizControls: [
+          { label: 'Toggle Clock Rate', action: 'toggleVerilogClock()' },
+        ],
+        overview:
+          'Bridging hardware description and fast visual inspection inside the editor: converts Verilog logic into executable Python simulation scripts and renders clean Matplotlib waveforms without external GUI friction.',
+        highlights: [
+          'Built a VS Code extension that converts Verilog code into Python simulation scripts and plots waveforms via Matplotlib.',
+          'Validated output signal transitions to ensure accurate, anomaly-free waveform rendering across test cases.',
+        ],
+        stack: ['Python', 'Claude Code', 'Codex', 'Git'],
+      },
+    };
+
+    // Navigation & FLIP morph state
+    let currentView = 'work';
+    let activeCaseStudyId = null;
+    let lastClickedCardEl = null;
+    let savedWorkScrollY = 0;
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.remove('opacity-0', 'translate-y-2');
+      toast.classList.add('opacity-100', 'translate-y-0');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 2200);
+    }
+
+    function copyText(text, successMsg) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast(successMsg || 'Copied to clipboard');
+      } catch (err) {
+        showToast(text);
+      }
+    }
+
+    function updateNavSlider(view) {
+      const slider = document.getElementById('nav-pill-slider');
+      const tabWork = document.getElementById('tab-work');
+      const tabInfo = document.getElementById('tab-info');
+      if (!slider || !tabWork || !tabInfo) return;
+
+      if (view === 'info') {
+        slider.style.transform = 'translateX(68px)';
+        tabInfo.classList.remove('text-muted');
+        tabInfo.classList.add('text-white');
+        tabWork.classList.remove('text-white');
+        tabWork.classList.add('text-muted');
+      } else {
+        slider.style.transform = 'translateX(0px)';
+        tabWork.classList.remove('text-muted');
+        tabWork.classList.add('text-white');
+        tabInfo.classList.remove('text-white');
+        tabInfo.classList.add('text-muted');
+      }
+    }
+
+    function navigateTo(view) {
+      destroyHeroVisualizer();
+      activeCaseStudyId = null;
+      currentView = view;
+      if (view !== 'work') destroyWorkVisualizers();
+      updateNavSlider(view);
+
+      const workSection = document.getElementById('view-work');
+      const caseSection = document.getElementById('view-case-study');
+      const infoSection = document.getElementById('view-info');
+
+      workSection.classList.toggle('hidden', view !== 'work');
+      caseSection.classList.toggle('hidden', view !== 'case-study');
+      infoSection.classList.toggle('hidden', view !== 'info');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (view === 'work') {
+        mountWorkVisualizers();
+      }
+    }
+
+    function renderCaseStudy(projectId) {
+      const proj = PROJECTS[projectId] || PROJECTS.synqra;
+      activeCaseStudyId = proj.id;
+      const nextProj = PROJECTS[proj.nextId] || PROJECTS.synqra;
+
+      const breadcrumb = document.getElementById('case-breadcrumb');
+      if (breadcrumb) breadcrumb.textContent = `Case Study / ${proj.tag}`;
+
+      const controlsHtml = (proj.vizControls || [])
+        .map(
+          (ctrl) => `<button type="button" onclick="${ctrl.action}" class="px-3 py-1.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/[0.12] text-[11px] font-mono text-zinc-100 transition-colors">${ctrl.label}</button>`
+        )
+        .join('');
+
+      const container = document.getElementById('case-study-content');
+      if (!container) return;
+
+      container.innerHTML = `
+        <div class="space-y-4">
+          <div class="text-xs font-mono uppercase tracking-widest text-muted">${proj.tag}</div>
+          <h1 class="text-3xl sm:text-5xl font-medium tracking-tight leading-[1.08] text-white">${proj.title}</h1>
+          <p class="text-base sm:text-lg text-muted leading-relaxed max-w-3xl">${proj.subtitle}</p>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+          ${proj.meta
+            .map(
+              (m) => `<div class="glass-card rounded-2xl p-4 space-y-1">
+                <div class="text-[11px] font-mono uppercase tracking-wider text-muted">${m.label}</div>
+                <div class="text-sm font-medium text-white">${m.value}</div>
+              </div>`
+            )
+            .join('')}
+        </div>
+
+        <div class="glass-card rounded-3xl p-4 sm:p-6 space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="inline-flex items-center gap-2 text-xs font-mono text-muted">
+              <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              <span id="case-viz-badge-label">${
+                proj.id === 'synqra' && vizState.synqraHeroType === 'rag_flow'
+                  ? 'End-to-End RAG Pipeline Visualizer'
+                  : proj.id === 'mcp' && vizState.mcpHeroType === 'mcp_flow'
+                    ? 'MCP Host/Client/Server & Reflective Loop Visualizer'
+                    : proj.vizBadge
+              }</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">${controlsHtml}</div>
+          </div>
+          <div class="viz-stage w-full h-[280px] sm:h-[340px] lg:h-[370px] rounded-2xl overflow-hidden">
+            <canvas id="canvas-case-hero" class="block w-full h-full"></canvas>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div class="lg:col-span-7 glass-card rounded-3xl p-6 sm:p-8 space-y-5">
+            <div class="space-y-2">
+              <div class="text-xs font-mono uppercase tracking-widest text-muted">Architecture &amp; Approach</div>
+              <p class="text-sm sm:text-base text-muted leading-relaxed">${proj.overview}</p>
+            </div>
+            <div class="space-y-2.5 pt-2">
+              <div class="text-xs font-mono uppercase tracking-widest text-muted">Key Engineering Outcomes</div>
+              <ul class="space-y-2.5 text-sm text-zinc-200 leading-relaxed">
+                ${proj.highlights
+                  .map((h) => `<li class="flex items-start gap-2.5"><span class="text-emerald-400 font-mono text-xs mt-1">&rarr;</span><span>${h}</span></li>`)
+                  .join('')}
+              </ul>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 space-y-5">
+            <div class="glass-card rounded-3xl p-6 space-y-4">
+              <div class="text-xs font-mono uppercase tracking-widest text-muted">Technologies Used</div>
+              <div class="flex flex-wrap gap-2">
+                ${proj.stack.map(renderInlineTechBadge).join('')}
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onclick="openCaseStudyWithMorph('${nextProj.id}', null)"
+              class="w-full text-left glass-card rounded-3xl p-6 space-y-2 group"
+            >
+              <div class="text-[11px] font-mono uppercase tracking-widest text-muted">Next Case Study &rarr;</div>
+              <div class="text-lg font-medium text-white group-hover:translate-x-0.5 transition-transform">${nextProj.title}</div>
+              <div class="text-xs text-muted">${nextProj.tag}</div>
+            </button>
+          </div>
+        </div>
+      `;
+
+      mountHeroVisualizer(proj.id);
+    }
+
+    function openCaseStudyWithMorph(projectId, sourceCardEl) {
+      if (!activeCaseStudyId) savedWorkScrollY = window.scrollY || 0;
+      lastClickedCardEl = sourceCardEl || document.getElementById(`card-${projectId}`);
+
+      const overlay = document.getElementById('flip-morph-overlay');
+      const mainEl = document.getElementById('app-main');
+
+      const showCaseSection = () => {
+        document.getElementById('view-work').classList.add('hidden');
+        document.getElementById('view-info').classList.add('hidden');
+        document.getElementById('view-case-study').classList.remove('hidden');
+        destroyWorkVisualizers();
+        currentView = 'case-study';
+        renderCaseStudy(projectId);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      };
+
+      if (!overlay || !lastClickedCardEl || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        showCaseSection();
+        return;
+      }
+
+      const rect = lastClickedCardEl.getBoundingClientRect();
+      overlay.classList.remove('hidden');
+      overlay.style.opacity = '1';
+      overlay.style.left = `${rect.left}px`;
+      overlay.style.top = `${rect.top}px`;
+      overlay.style.width = `${rect.width}px`;
+      overlay.style.height = `${rect.height}px`;
+      overlay.style.borderRadius = '24px';
+
+      if (mainEl) {
+        mainEl.style.opacity = '0.35';
+      }
+
+      requestAnimationFrame(() => {
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const targetW = Math.min(vw * 0.92, 1040);
+        const targetH = Math.min(vh * 0.84, 720);
+        const targetLeft = (vw - targetW) / 2;
+        const targetTop = Math.max(24, (vh - targetH) / 2);
+
+        overlay.style.transition = 'all 460ms cubic-bezier(0.22, 1, 0.36, 1)';
+        overlay.style.left = `${targetLeft}px`;
+        overlay.style.top = `${targetTop}px`;
+        overlay.style.width = `${targetW}px`;
+        overlay.style.height = `${targetH}px`;
+        overlay.style.borderRadius = '32px';
+      });
+
+      setTimeout(() => {
+        showCaseSection();
+        overlay.style.transition = 'opacity 260ms ease';
+        overlay.style.opacity = '0';
+        if (mainEl) mainEl.style.opacity = '1';
+        setTimeout(() => {
+          overlay.classList.add('hidden');
+          overlay.style.transition = '';
+        }, 270);
+      }, 260);
+    }
+
+    function closeCaseStudyWithMorph() {
+      const overlay = document.getElementById('flip-morph-overlay');
+      const mainEl = document.getElementById('app-main');
+
+      destroyHeroVisualizer();
+      activeCaseStudyId = null;
+      currentView = 'work';
+
+      document.getElementById('view-case-study').classList.add('hidden');
+      document.getElementById('view-info').classList.add('hidden');
+      document.getElementById('view-work').classList.remove('hidden');
+      updateNavSlider('work');
+
+      window.scrollTo({ top: savedWorkScrollY, behavior: 'instant' });
+      mountWorkVisualizers();
+
+      const targetCard = lastClickedCardEl && lastClickedCardEl.isConnected
+        ? lastClickedCardEl
+        : document.getElementById('card-synqra');
+
+      if (!overlay || !targetCard || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+      }
+
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const startW = Math.min(vw * 0.88, 960);
+      const startH = Math.min(vh * 0.72, 540);
+      const destRect = targetCard.getBoundingClientRect();
+
+      overlay.classList.remove('hidden');
+      overlay.style.transition = 'none';
+      overlay.style.opacity = '0.85';
+      overlay.style.left = `${(vw - startW) / 2}px`;
+      overlay.style.top = `${Math.max(36, (vh - startH) / 2)}px`;
+      overlay.style.width = `${startW}px`;
+      overlay.style.height = `${startH}px`;
+      overlay.style.borderRadius = '32px';
+      if (mainEl) mainEl.style.opacity = '0.88';
+
+      requestAnimationFrame(() => {
+        overlay.style.transition = 'all 400ms cubic-bezier(0.22, 1, 0.36, 1)';
+        overlay.style.left = `${destRect.left}px`;
+        overlay.style.top = `${destRect.top}px`;
+        overlay.style.width = `${destRect.width}px`;
+        overlay.style.height = `${destRect.height}px`;
+        overlay.style.borderRadius = '24px';
+        overlay.style.opacity = '0';
+        if (mainEl) mainEl.style.opacity = '1';
+      });
+
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        overlay.style.transition = '';
+      }, 420);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') toggleContactCard(false);
+      if (e.key === 'Escape' && activeCaseStudyId) {
+        closeCaseStudyWithMorph();
+      }
+    });
+
+    // Shared interactive states for hero controls
+    const vizState = {
+      synqraPulseBoost: 0,
+      synqraPulseWave: -1, // -1 = inactive, 0..1 = smooth single-shot query pulse wave
+      synqraHeroType: 'synqra', // 'synqra' (Embedding/BM25/RRF vector space) | 'rag_flow' (Full RAG pipeline)
+      mcpHeroType: 'mcp', // 'mcp' (Reflective ring inside case study) | 'mcp_flow' (Full MCP + Reflective loop)
+      speechMode: 'latency',
+      mcpStepOffset: 0,
+      distributedPulse: 0,
+      verilogFastClock: false,
+    };
+
+    function toggleContactCard(forceState) {
+      const pop = document.getElementById('contact-popover');
+      if (!pop) return;
+      const shouldOpen = typeof forceState === 'boolean' ? forceState : pop.classList.contains('hidden');
+      pop.classList.toggle('hidden', !shouldOpen);
+      document.querySelector('[aria-controls=contact-popover]').setAttribute('aria-expanded', String(shouldOpen));
+    }
+
+    function triggerSynqraPulse() {
+      vizState.synqraPulseBoost = 1.0;
+      vizState.synqraPulseWave = 0.0;
+    }
+
+    function toggleSynqraHeroViz() {
+      vizState.synqraHeroType = vizState.synqraHeroType === 'synqra' ? 'rag_flow' : 'synqra';
+      if (activeCaseStudyId === 'synqra') {
+        mountHeroVisualizer('synqra');
+        const badge = document.getElementById('case-viz-badge-label');
+        if (badge) {
+          badge.textContent =
+            vizState.synqraHeroType === 'rag_flow'
+              ? 'End-to-End RAG Pipeline Visualizer'
+              : 'Embedding, BM25 & RRF Vector Space Visualizer';
+        }
+      }
+    }
+
+    function toggleMcpHeroViz() {
+      vizState.mcpHeroType = vizState.mcpHeroType === 'mcp' ? 'mcp_flow' : 'mcp';
+      if (activeCaseStudyId === 'mcp') {
+        mountHeroVisualizer('mcp');
+        const badge = document.getElementById('case-viz-badge-label');
+        if (badge) {
+          badge.textContent =
+            vizState.mcpHeroType === 'mcp_flow'
+              ? 'MCP Host/Client/Server & Reflective Loop Visualizer'
+              : 'Reflective Ring & Tool Loop Visualizer';
+        }
+      }
+    }
+
+    function setSpeechVizMode(mode) {
+      vizState.speechMode = mode;
+    }
+
+    function stepMcpCycle() {
+      vizState.mcpStepOffset = (vizState.mcpStepOffset + 1) % 4;
+    }
+
+    function pulseDistributedSwarm() {
+      vizState.distributedPulse = 1.0;
+    }
+
+    function toggleVerilogClock() {
+      vizState.verilogFastClock = !vizState.verilogFastClock;
+    }
+
+    // 60fps retina canvas visualizers
+    class CanvasVisualizer {
+      constructor(canvas, type, isHero = false) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.type = type;
+        this.isHero = isHero;
+        this.width = 0;
+        this.height = 0;
+        this.time = Math.random() * 20;
+        this.rafId = null;
+        this.isPaused = false;
+
+        this.points = Array.from({ length: 34 }, (_, i) => {
+          const cluster = i % 3;
+          const baseAngles = [-0.6, 0.4, 2.2];
+          const angle = baseAngles[cluster] + (Math.random() - 0.5) * 1.1;
+          const radius = 0.25 + Math.random() * 0.65;
+          return {
+            x: Math.cos(angle) * radius,
+            y: Math.sin(angle) * radius,
+            z: (Math.random() - 0.5) * 1.2,
+            cluster,
+            phase: Math.random() * Math.PI * 2,
+          };
+        });
+
+        this.resize();
+        this._onResize = () => this.resize();
+        window.addEventListener('resize', this._onResize);
+        this.start();
+      }
+
+      resize() {
+        const parent = this.canvas.parentElement;
+        if (!parent) return;
+        const rect = parent.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        this.width = Math.max(rect.width, 240);
+        this.height = Math.max(rect.height, 160);
+        this.canvas.width = Math.floor(this.width * dpr);
+        this.canvas.height = Math.floor(this.height * dpr);
+        this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+
+      setPaused(paused) {
+        this.isPaused = paused;
+        if (!paused && !this.rafId) {
+          this.start();
+        }
+      }
+
+      start() {
+        if (this.rafId) cancelAnimationFrame(this.rafId);
+        let last = performance.now();
+        const tick = (now) => {
+          const dt = Math.min((now - last) / 1000, 0.05);
+          last = now;
+          if (!this.isPaused) {
+            this.time += dt;
+            this.draw();
+          }
+          this.rafId = requestAnimationFrame(tick);
+        };
+        this.rafId = requestAnimationFrame(tick);
+      }
+
+      destroy() {
+        if (this.rafId) cancelAnimationFrame(this.rafId);
+        this.rafId = null;
+        window.removeEventListener('resize', this._onResize);
+      }
+
+      draw() {
+        const ctx = this.ctx;
+        const w = this.width;
+        const h = this.height;
+        ctx.clearRect(0, 0, w, h);
+
+        if (this.type === 'rag_flow') this.drawRagFlow(ctx, w, h);
+        else if (this.type === 'synqra') this.drawSynqra(ctx, w, h);
+        else if (this.type === 'speech') this.drawSpeech(ctx, w, h);
+        else if (this.type === 'mcp_flow') this.drawMcpFlow(ctx, w, h);
+        else if (this.type === 'mcp') this.drawMcp(ctx, w, h);
+        else if (this.type === 'distributed') this.drawDistributed(ctx, w, h);
+        else if (this.type === 'verilog') this.drawVerilog(ctx, w, h);
+      }
+
+      // Main MCP card visualizer: Host -> Client -> Server -> Tools/Resources + Reflective Loop
+      drawMcpFlow(ctx, w, h) {
+        const compact = w < 480;
+        const boxW = Math.min(compact ? 84 : 112, w * 0.21);
+        const boxH = compact ? 24 : 28;
+
+        const hostNode = { x: w * 0.14, y: h * 0.25, label: 'MCP HOST' };
+        const clientNode = { x: w * 0.14, y: h * 0.62, label: 'JSON-RPC' };
+        const serverNode = { x: w * 0.39, y: h * 0.25, label: 'MCP SERVER' };
+        const toolsNode = { x: w * 0.39, y: h * 0.62, label: 'TOOLS/PDF' };
+
+        const genNode = { x: w * 0.75, y: h * 0.22, label: 'GENERATE' };
+        const evalNode = { x: w * 0.88, y: h * 0.52, label: 'EVALUATE' };
+        const refineNode = { x: w * 0.63, y: h * 0.52, label: 'REFINE' };
+
+        const mcpPath = [hostNode, clientNode, serverNode, toolsNode, clientNode];
+        const refPath = [genNode, evalNode, refineNode, genNode];
+
+        ctx.strokeStyle = 'rgba(129, 140, 248, 0.26)';
+        ctx.lineWidth = 1.2;
+        for (let i = 0; i < mcpPath.length - 1; i++) {
+          ctx.beginPath();
+          ctx.moveTo(mcpPath[i].x, mcpPath[i].y);
+          ctx.lineTo(mcpPath[i + 1].x, mcpPath[i + 1].y);
+          ctx.stroke();
+        }
+
+        ctx.strokeStyle = 'rgba(251, 191, 36, 0.28)';
+        for (let i = 0; i < refPath.length - 1; i++) {
+          ctx.beginPath();
+          ctx.moveTo(refPath[i].x, refPath[i].y);
+          ctx.lineTo(refPath[i + 1].x, refPath[i + 1].y);
+          ctx.stroke();
+        }
+
+        // MCP packet
+        const mT = (this.time * 0.28 + vizState.mcpStepOffset * 0.25) % 1;
+        const mExact = mT * (mcpPath.length - 1);
+        const mIdx = Math.min(mcpPath.length - 2, Math.floor(mExact));
+        const mLocal = mExact - mIdx;
+        const mx = mcpPath[mIdx].x + (mcpPath[mIdx + 1].x - mcpPath[mIdx].x) * mLocal;
+        const my = mcpPath[mIdx].y + (mcpPath[mIdx + 1].y - mcpPath[mIdx].y) * mLocal;
+
+        ctx.beginPath();
+        ctx.arc(mx, my, 4.2, 0, Math.PI * 2);
+        ctx.fillStyle = '#38BDF8';
+        ctx.fill();
+
+        // Reflective packet
+        const rT = (this.time * 0.32 + vizState.mcpStepOffset * 0.25) % 1;
+        const rExact = rT * (refPath.length - 1);
+        const rIdx = Math.min(refPath.length - 2, Math.floor(rExact));
+        const rLocal = rExact - rIdx;
+        const rx = refPath[rIdx].x + (refPath[rIdx + 1].x - refPath[rIdx].x) * rLocal;
+        const ry = refPath[rIdx].y + (refPath[rIdx + 1].y - refPath[rIdx].y) * rLocal;
+
+        ctx.beginPath();
+        ctx.arc(rx, ry, 4.2, 0, Math.PI * 2);
+        ctx.fillStyle = '#FBBF24';
+        ctx.fill();
+
+        [hostNode, clientNode, serverNode, toolsNode, genNode, evalNode, refineNode].forEach((n) => {
+          const x = n.x - boxW / 2;
+          const y = n.y - boxH / 2;
+          ctx.fillStyle = 'rgba(17, 17, 22, 0.92)';
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.14)';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          if (typeof ctx.roundRect === 'function') {
+            ctx.roundRect(x, y, boxW, boxH, 7);
+          } else {
+            ctx.rect(x, y, boxW, boxH);
+          }
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.textAlign = 'center';
+          ctx.font = '500 9px "JetBrains Mono", monospace';
+          ctx.fillStyle = '#F4F4F6';
+          ctx.fillText(n.label, n.x, n.y + 3);
+        });
+        ctx.textAlign = 'left';
+
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillStyle = 'rgba(156, 163, 175, 0.85)';
+        ctx.fillText('MCP HOST/CLIENT/SERVER + GENERATE -> EVALUATE -> REFINE LOOP', 14, h - 12);
+      }
+
+      // Main Synqra card visualizer: Ingestion -> Semantic Chunking -> Embed/BM25/RRF -> LLM
+      drawRagFlow(ctx, w, h) {
+        if (vizState.synqraPulseBoost > 0.01) {
+          vizState.synqraPulseBoost *= 0.96;
+        }
+        const speed = 1 + vizState.synqraPulseBoost * 1.4;
+        const compact = w < 460;
+
+        const boxW = Math.min(compact ? 84 : 112, w * 0.21);
+        const boxH = compact ? 24 : 28;
+
+        const col1X = w * (compact ? 0.14 : 0.11);
+        const col2X = w * (compact ? 0.39 : 0.34);
+        const col3X = w * (compact ? 0.63 : 0.58);
+        const col4X = w * (compact ? 0.86 : 0.84);
+
+        const topY = h * 0.22;
+        const midY = h * 0.52;
+        const botY = h * 0.8;
+
+        const ingestNode = { x: col1X, y: topY, label: 'INGEST' };
+        const chunkNode = { x: col2X, y: topY, label: 'CHUNK' };
+
+        const queryNode = { x: col1X, y: midY, label: 'QUERY' };
+        const embedNode = { x: col2X, y: midY, label: 'EMBED' };
+        const rrfNode = { x: col2X, y: botY, label: 'BM25+RRF' };
+
+        const dbNode = { x: col3X, y: midY, label: 'MILVUS DB' };
+        const citeNode = { x: col3X, y: botY, label: 'CHUNKS' };
+
+        const promptNode = { x: col4X, y: botY, label: 'PROMPT' };
+        const llmNode = { x: col4X, y: midY, label: 'GEMINI' };
+        const outNode = { x: col4X, y: topY, label: 'ANSWER' };
+
+        const links = [
+          [ingestNode, chunkNode, 'rgba(45, 212, 191, 0.28)'],
+          [chunkNode, dbNode, 'rgba(45, 212, 191, 0.25)'],
+          [queryNode, embedNode, 'rgba(52, 211, 153, 0.28)'],
+          [embedNode, rrfNode, 'rgba(56, 189, 248, 0.28)'],
+          [rrfNode, dbNode, 'rgba(56, 189, 248, 0.28)'],
+          [dbNode, citeNode, 'rgba(129, 140, 248, 0.26)'],
+          [citeNode, promptNode, 'rgba(167, 139, 250, 0.26)'],
+          [promptNode, llmNode, 'rgba(251, 191, 36, 0.26)'],
+          [llmNode, outNode, 'rgba(52, 211, 153, 0.34)'],
+        ];
+
+        links.forEach(([a, b, stroke]) => {
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = stroke;
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+        });
+
+        // Ingestion packet: Ingest -> Semantic Chunk -> Milvus DB
+        const ingT = (this.time * 0.28 * speed) % 1;
+        const ingPath = [ingestNode, chunkNode, dbNode];
+        const ingExact = ingT * (ingPath.length - 1);
+        const ingIdx = Math.min(ingPath.length - 2, Math.floor(ingExact));
+        const ingLocal = ingExact - ingIdx;
+        const ingPos = {
+          x: ingPath[ingIdx].x + (ingPath[ingIdx + 1].x - ingPath[ingIdx].x) * ingLocal,
+          y: ingPath[ingIdx].y + (ingPath[ingIdx + 1].y - ingPath[ingIdx].y) * ingLocal,
+        };
+        ctx.beginPath();
+        ctx.arc(ingPos.x, ingPos.y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = '#2DD4BF';
+        ctx.fill();
+
+        // Query packets: Query -> Embed -> BM25+RRF -> Milvus DB -> Chunks -> Prompt -> LLM -> Answer
+        const qPath = [queryNode, embedNode, rrfNode, dbNode, citeNode, promptNode, llmNode, outNode];
+        for (let p = 0; p < 2; p++) {
+          const qt = ((this.time * 0.24 * speed) + p * 0.5) % 1;
+          const exact = qt * (qPath.length - 1);
+          const idx = Math.min(qPath.length - 2, Math.floor(exact));
+          const local = exact - idx;
+          const pos = {
+            x: qPath[idx].x + (qPath[idx + 1].x - qPath[idx].x) * local,
+            y: qPath[idx].y + (qPath[idx + 1].y - qPath[idx].y) * local,
+          };
+
+          ctx.beginPath();
+          ctx.arc(pos.x, pos.y, 8, 0, Math.PI * 2);
+          ctx.fillStyle = p === 0 ? 'rgba(52, 211, 153, 0.18)' : 'rgba(56, 189, 248, 0.16)';
+          ctx.fill();
+
+          ctx.beginPath();
+          ctx.arc(pos.x, pos.y, 4, 0, Math.PI * 2);
+          ctx.fillStyle = p === 0 ? '#34D399' : '#38BDF8';
+          ctx.fill();
+        }
+
+        const allNodes = [
+          ingestNode, chunkNode, queryNode, embedNode, rrfNode,
+          dbNode, citeNode, promptNode, llmNode, outNode,
+        ];
+        allNodes.forEach((n) => {
+          const x = n.x - boxW / 2;
+          const y = n.y - boxH / 2;
+          ctx.fillStyle = 'rgba(17, 17, 22, 0.92)';
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.14)';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          if (typeof ctx.roundRect === 'function') {
+            ctx.roundRect(x, y, boxW, boxH, 7);
+          } else {
+            ctx.rect(x, y, boxW, boxH);
+          }
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.textAlign = 'center';
+          ctx.font = '500 9.5px "JetBrains Mono", monospace';
+          ctx.fillStyle = '#F4F4F6';
+          ctx.fillText(n.label, n.x, n.y + 3);
+        });
+        ctx.textAlign = 'left';
+
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillStyle = 'rgba(156, 163, 175, 0.85)';
+        ctx.fillText('INGEST -> SEMANTIC CHUNK -> EMBED / BM25+RRF -> CITATIONS -> LLM', 14, h - 12);
+      }
+
+      // Case-study Synqra visualizer: Embedding / BM25 + RRF vector space
+      drawSynqra(ctx, w, h) {
+        if (vizState.synqraPulseBoost > 0.01) {
+          vizState.synqraPulseBoost *= 0.94;
+        } else {
+          vizState.synqraPulseBoost = 0;
+        }
+
+        if (vizState.synqraPulseWave >= 0) {
+          vizState.synqraPulseWave += 0.022;
+          if (vizState.synqraPulseWave > 1) {
+            vizState.synqraPulseWave = -1;
+          }
+        }
+
+        const cx = w * 0.52;
+        const cy = h * 0.5;
+        const scale = Math.min(w * 0.34, h * 0.36);
+        const rot = this.time * 0.25;
+
+        const projected = this.points.map((pt) => {
+          const cosR = Math.cos(rot);
+          const sinR = Math.sin(rot);
+          const rx = pt.x * cosR - pt.z * sinR;
+          const rz = pt.x * sinR + pt.z * cosR;
+          const ry = pt.y + Math.sin(this.time * 1.1 + pt.phase) * 0.04;
+          const depth = 1 / (2.2 - rz * 0.45);
+          return {
+            sx: cx + rx * scale * depth * 1.4,
+            sy: cy + ry * scale * depth * 1.25,
+            depth,
+            cluster: pt.cluster,
+          };
+        });
+
+        for (let i = 0; i < projected.length; i++) {
+          for (let j = i + 1; j < projected.length; j++) {
+            const dx = projected[i].sx - projected[j].sx;
+            const dy = projected[i].sy - projected[j].sy;
+            const dist = Math.hypot(dx, dy);
+            if (dist < scale * 0.46) {
+              ctx.beginPath();
+              ctx.moveTo(projected[i].sx, projected[i].sy);
+              ctx.lineTo(projected[j].sx, projected[j].sy);
+              ctx.strokeStyle = `rgba(148, 163, 184, ${(1 - dist / (scale * 0.46)) * 0.16})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Smooth ambient query dot + optional triggered single-shot wave
+        const pulsePhase = (this.time * 0.35) % 1;
+        const qx = w * 0.14 + (cx - w * 0.14) * pulsePhase;
+        const qy = h * 0.5 + Math.sin(pulsePhase * Math.PI) * -22;
+
+        projected.forEach((p) => {
+          const isTopK = Math.hypot(p.sx - cx, p.sy - cy) < scale * 0.52;
+          const r = (2.2 + p.depth * 1.6) * (isTopK ? 1.25 : 1);
+          ctx.beginPath();
+          ctx.arc(p.sx, p.sy, r, 0, Math.PI * 2);
+          ctx.fillStyle = isTopK
+            ? 'rgba(52, 211, 153, 0.85)'
+            : p.cluster === 1
+              ? 'rgba(56, 189, 248, 0.65)'
+              : 'rgba(228, 228, 231, 0.45)';
+          ctx.fill();
+        });
+
+        ctx.beginPath();
+        ctx.arc(qx, qy, 7, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(52, 211, 153, 0.18)';
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(qx, qy, 3.8, 0, Math.PI * 2);
+        ctx.fillStyle = '#34D399';
+        ctx.fill();
+
+        if (vizState.synqraPulseWave >= 0) {
+          const waveT = vizState.synqraPulseWave;
+          const wx = w * 0.14 + (cx - w * 0.14) * waveT;
+          const wy = h * 0.5 + Math.sin(waveT * Math.PI) * -22;
+          const ringR = 10 + waveT * 34;
+
+          ctx.beginPath();
+          ctx.arc(wx, wy, ringR, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(52, 211, 153, ${(1 - waveT) * 0.7})`;
+          ctx.lineWidth = 1.6;
+          ctx.stroke();
+
+          ctx.beginPath();
+          ctx.arc(wx, wy, 4.5, 0, Math.PI * 2);
+          ctx.fillStyle = '#6EE7B7';
+          ctx.fill();
+        }
+
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillStyle = 'rgba(156, 163, 175, 0.85)';
+        ctx.fillText('QUERY -> DENSE + BM25 -> RRF TOP-K -> CITED CHUNKS', 14, h - 12);
+      }
+
+      drawSpeech(ctx, w, h) {
+        const isWer = vizState.speechMode === 'wer';
+        const waveTop = h * 0.18;
+        const waveH = h * 0.24;
+        const midWave = waveTop + waveH * 0.5;
+
+        ctx.beginPath();
+        const samples = 72;
+        for (let i = 0; i <= samples; i++) {
+          const t = i / samples;
+          const x = 18 + t * (w - 36);
+          const env = Math.sin(t * Math.PI);
+          const amp =
+            (Math.sin(t * 28 - this.time * 7) * 0.5 +
+              Math.cos(t * 53 + this.time * 11) * 0.35) *
+            env *
+            (waveH * 0.44);
+          const y = midWave + amp;
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = 'rgba(56, 189, 248, 0.72)';
+        ctx.lineWidth = 1.6;
+        ctx.stroke();
+
+        const barStartY = h * 0.5;
+        const bars = isWer
+          ? [
+              { label: 'Parakeet TDT v2 Q8_0 (Libri)', val: 0.12, text: '1.59% WER' },
+              { label: 'Parakeet TDT v2 Q8_0 (Med)', val: 0.55, text: '14.03% WER' },
+              { label: 'MedASR / Nemotron Eval', val: 0.78, text: 'Eval Suite' },
+            ]
+          : [
+              { label: 'PyTorch ASR Baseline', val: 1.0, text: '2,409 ms' },
+              { label: 'ONNX Runtime CPU (5.5x)', val: 0.18, text: '435 ms' },
+              { label: 'SymSpell Post-Proc', val: 0.12, text: '282 ms' },
+            ];
+
+        const sweep = (Math.sin(this.time * 2.2) + 1) * 0.5;
+        bars.forEach((b, idx) => {
+          const y = barStartY + idx * ((h * 0.38) / bars.length);
+          const trackX = w * 0.44;
+          const trackW = Math.max(w * 0.36, 90);
+          const fillW = trackW * b.val * (0.85 + 0.15 * sweep);
+
+          ctx.font = '10px "JetBrains Mono", monospace';
+          ctx.fillStyle = 'rgba(209, 213, 219, 0.85)';
+          ctx.fillText(b.label, 18, y + 10);
+
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+          ctx.fillRect(trackX, y + 2, trackW, 10);
+
+          ctx.fillStyle =
+            idx === 1 && !isWer ? 'rgba(52, 211, 153, 0.82)' : 'rgba(56, 189, 248, 0.72)';
+          ctx.fillRect(trackX, y + 2, fillW, 10);
+
+          ctx.fillStyle = 'rgba(244, 244, 246, 0.9)';
+          ctx.fillText(b.text, trackX + trackW + 8, y + 10);
+        });
+      }
+
+      drawMcp(ctx, w, h) {
+        const cx = w * 0.5;
+        const cy = h * 0.48;
+        const rx = Math.min(w * 0.31, 155);
+        const ry = Math.min(h * 0.25, 68);
+
+        const nodes = [
+          { label: 'GENERATE', x: cx, y: cy - ry },
+          { label: 'MCP TOOLS', x: cx + rx, y: cy },
+          { label: 'EVALUATE', x: cx, y: cy + ry },
+          { label: 'REFINE', x: cx - rx, y: cy },
+        ];
+
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(129, 140, 248, 0.28)';
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+
+        const angle = this.time * 1.15 + vizState.mcpStepOffset * (Math.PI * 0.5);
+        const px = cx + Math.cos(angle) * rx;
+        const py = cy + Math.sin(angle) * ry;
+
+        ctx.beginPath();
+        ctx.arc(px, py, 9, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(129, 140, 248, 0.22)';
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(px, py, 4.2, 0, Math.PI * 2);
+        ctx.fillStyle = '#A5B4FC';
+        ctx.fill();
+
+        nodes.forEach((n, idx) => {
+          const active = Math.floor(((angle % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2) / (Math.PI * 0.5)) === idx;
+          ctx.fillStyle = active ? 'rgba(129, 140, 248, 0.22)' : 'rgba(17, 17, 22, 0.92)';
+          ctx.strokeStyle = active ? 'rgba(165, 180, 252, 0.75)' : 'rgba(255, 255, 255, 0.14)';
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, 18, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.stroke();
+
+          ctx.textAlign = 'center';
+          ctx.font = '500 8.5px "JetBrains Mono", monospace';
+          ctx.fillStyle = '#F4F4F6';
+          ctx.fillText(n.label.slice(0, 7), n.x, n.y + 3);
+        });
+        ctx.textAlign = 'left';
+
+        ctx.font = '10px "JetBrains Mono", monospace';
+        ctx.fillStyle = 'rgba(156, 163, 175, 0.85)';
+        ctx.fillText('MCP: GREETER · FILE COUNTER · CHAT SAVER · PDF QA · LINK CHECK', 14, h - 12);
+      }
+
+      drawDistributed(ctx, w, h) {
+        if (vizState.distributedPulse > 0.01) {
+          vizState.distributedPulse *= 0.95;
+        }
+        const padX = 24;
+        const padTop = 36;
+        const plotW = Math.max(w - padX * 2, 120);
+        const plotH = Math.max(h * 0.52, 70);
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+        ctx.lineWidth = 1;
+        for (let g = 0; g <= 3; g++) {
+          const gy = padTop + (plotH / 3) * g;
+          ctx.beginPath();
+          ctx.moveTo(padX, gy);
+          ctx.lineTo(padX + plotW, gy);
+          ctx.stroke();
+        }
+
+        const progress = ((this.time * 0.22) % 0.85) + 0.15;
+        ctx.beginPath();
+        const steps = 60;
+        for (let i = 0; i <= steps; i++) {
+          const t = (i / steps) * progress;
+          const x = padX + t * plotW;
+          const loss =
+            0.16 +
+            0.72 * Math.exp(-t * 3.4) +
+            Math.sin(t * 24 + this.time * 3) * 0.025 * (1 - t * 0.6);
+          const y = padTop + (1 - Math.min(1, Math.max(0.08, loss))) * plotH;
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = 'rgba(251, 191, 36, 0.85)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        const peerY = h * 0.84;
+        const peers = ['2x T4 QLoRA', 'Qwen 2.5 0.5B', 'Petals Peer A', 'Petals Peer B', 'Telugu ASR'];
+        peers.forEach((label, idx) => {
+          const px = padX + (plotW / (peers.length - 1)) * idx;
+          const pulse = (Math.sin(this.time * 3.2 - idx) + 1) * 0.5;
+          ctx.beginPath();
+          ctx.arc(px, peerY, 4 + pulse * 2.5 + vizState.distributedPulse * 2, 0, Math.PI * 2);
+          ctx.fillStyle = idx < 2 ? 'rgba(251, 191, 36, 0.85)' : 'rgba(52, 211, 153, 0.78)';
+          ctx.fill();
+
+          ctx.font = '9px "JetBrains Mono", monospace';
+          ctx.fillStyle = 'rgba(156, 163, 175, 0.85)';
+          ctx.fillText(label, Math.max(10, px - 22), peerY - 9);
+        });
+      }
+
+      drawVerilog(ctx, w, h) {
+        const rate = vizState.verilogFastClock ? 11 : 5.5;
+        const lanes = [
+          { name: 'CLK', y: h * 0.25, fn: (t) => (Math.sin(t * rate) >= 0 ? 1 : 0), color: '#2DD4BF' },
+          { name: 'DATA_IN', y: h * 0.48, fn: (t) => (Math.sin(t * rate * 0.5 + 0.7) >= 0 ? 1 : 0), color: '#38BDF8' },
+          { name: 'SIM_OUT', y: h * 0.72, fn: (t) => (Math.cos(t * rate * 0.5 - 0.4) >= 0 ? 1 : 0), color: '#34D399' },
+        ];
+
+        const leftLabelW = 68;
+        const waveLeft = leftLabelW + 10;
+        const waveW = Math.max(w - waveLeft - 18, 80);
+        const amp = Math.min(h * 0.08, 18);
+
+        lanes.forEach((lane) => {
+          ctx.font = '10px "JetBrains Mono", monospace';
+          ctx.fillStyle = 'rgba(209, 213, 219, 0.85)';
+          ctx.fillText(lane.name, 14, lane.y + 4);
+
+          ctx.beginPath();
+          const segs = 90;
+          let prevVal = null;
+          for (let i = 0; i <= segs; i++) {
+            const u = i / segs;
+            const x = waveLeft + u * waveW;
+            const val = lane.fn(u * 12 - this.time);
+            const y = lane.y + (val ? -amp : amp);
+            if (i === 0) {
+              ctx.moveTo(x, y);
+            } else {
+              if (prevVal !== null && prevVal !== val) {
+                const prevY = lane.y + (prevVal ? -amp : amp);
+                ctx.lineTo(x, prevY);
+              }
+              ctx.lineTo(x, y);
+            }
+            prevVal = val;
+          }
+          ctx.strokeStyle = lane.color;
+          ctx.lineWidth = 1.6;
+          ctx.stroke();
+        });
+      }
+    }
+
+    let workVisualizers = [];
+    let workObserver = null;
+    let heroVisualizerInstance = null;
+
+    function destroyWorkVisualizers() {
+      if (workObserver) {
+        workObserver.disconnect();
+        workObserver = null;
+      }
+      workVisualizers.forEach((v) => v.destroy());
+      workVisualizers = [];
+    }
+
+    function mountWorkVisualizers() {
+      destroyWorkVisualizers();
+      const canvases = document.querySelectorAll('#view-work canvas[data-viz]');
+      canvases.forEach((canvas) => {
+        const vizType = canvas.getAttribute('data-viz');
+        const inst = new CanvasVisualizer(canvas, vizType, false);
+        workVisualizers.push(inst);
+      });
+
+      if ('IntersectionObserver' in window) {
+        workObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const found = workVisualizers.find((v) => v.canvas === entry.target);
+              if (found) {
+                found.setPaused(!entry.isIntersecting);
+              }
+            });
+          },
+          { threshold: 0.05 }
+        );
+        workVisualizers.forEach((v) => workObserver.observe(v.canvas));
+      }
+    }
+
+    function mountHeroVisualizer(projectId) {
+      destroyHeroVisualizer();
+      const canvas = document.getElementById('canvas-case-hero');
+      if (!canvas) return;
+      let vizType = projectId;
+      if (projectId === 'synqra') vizType = vizState.synqraHeroType;
+      else if (projectId === 'mcp') vizType = vizState.mcpHeroType;
+      heroVisualizerInstance = new CanvasVisualizer(canvas, vizType, true);
+    }
+
+    function destroyHeroVisualizer() {
+      if (heroVisualizerInstance) {
+        heroVisualizerInstance.destroy();
+        heroVisualizerInstance = null;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderInlineCardStacks();
+      renderTechCategoryFilters();
+      renderTechStackGrid();
+      renderInfoSkillsMatrix();
+      updateNavSlider('work');
+      mountWorkVisualizers();
+    });
+  </script>
+</body>
+</html>
