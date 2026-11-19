@@ -1,6 +1,8 @@
 # Personal Portfolio
 
-Live website: https://nithishkumar2022020.github.io/
+Live website: https://nithishkumar.pages.dev/
+
+GitHub Pages mirror: https://nithishkumar2022020.github.io/
 
 Repository: https://github.com/nithishkumar2022020/nithishkumar2022020.github.io
 

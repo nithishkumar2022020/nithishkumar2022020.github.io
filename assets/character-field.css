@@ -1,0 +1,20 @@
+#site-character-field{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}body{isolation:isolate}header,main,footer{position:relative;z-index:1}header{z-index:40}.glass-card{background:linear-gradient(180deg,rgba(17,17,20,.9),rgba(11,11,14,.87))!important}.tech-card{background:rgba(17,17,20,.84)!important}.matrix-preview-controls{position:fixed;bottom:12px;left:12px;display:flex;gap:12px;align-items:center;z-index:80;padding:10px 14px;border:1px solid #ffffff20;border-radius:14px;background:#101114ed;color:#9ca3af;font:11px/1.5 ui-monospace,monospace;box-shadow:0 8px 30px #0008}.matrix-preview-controls label{display:flex;gap:7px;align-items:center}.matrix-preview-controls select,.matrix-preview-controls button{background:#191b20;border:1px solid #ffffff26;border-radius:12px;color:#e4e4e7;padding:6px 9px;font:11px/1.5 ui-monospace,monospace}.site-cursor-ring,.site-cursor-dot{position:fixed;left:0;top:0;z-index:100;pointer-events:none;opacity:0;box-sizing:border-box;will-change:transform}.site-cursor-ring{width:30px;height:30px;border:1px solid #8ce7c399;border-radius:50%}.site-cursor-dot{width:4px;height:4px;background:#c7ffeb;border-radius:50%}body[data-site-cursor="crosshair"] .site-cursor-ring{border:0;border-radius:0}body[data-site-cursor="crosshair"] .site-cursor-ring:before,body[data-site-cursor="crosshair"] .site-cursor-ring:after{content:'';position:absolute;background:#8ce7c3a8}body[data-site-cursor="crosshair"] .site-cursor-ring:before{width:30px;height:1px;top:14.5px;left:0}body[data-site-cursor="crosshair"] .site-cursor-ring:after{height:30px;width:1px;left:14.5px;top:0}@media(hover:hover) and (pointer:fine){body.matrix-cursor-active,body.matrix-cursor-active *{cursor:none!important}.matrix-cursor-active .site-cursor-ring,.matrix-cursor-active .site-cursor-dot{opacity:1}}@media(pointer:coarse){.matrix-preview-controls select{font-size:16px}.matrix-preview-controls{flex-wrap:wrap;gap:8px;max-width:calc(100vw - 24px)}}
+
+/* A calm reading surface over the animated field. */
+.resume-page article { position:relative; padding:44px 48px; box-sizing:border-box; border:1px solid rgba(255,255,255,.11); border-radius:24px; background:linear-gradient(160deg,rgba(24,27,32,.84),rgba(13,16,20,.92)); backdrop-filter:blur(22px) saturate(115%); -webkit-backdrop-filter:blur(22px) saturate(115%); box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 22px 70px rgba(0,0,0,.3); }
+.resume-page main { max-width:1140px; }
+.resume-page article { max-width:960px; }
+@media(max-width:640px) { .resume-page article { padding:30px 22px; border-radius:18px; } .resume-page main { padding-left:12px; padding-right:12px; } }
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) { .resume-page article { background:rgba(17,20,25,.98); } }
+
+.resume-page .resume-heading h1 { font-family:Inter,system-ui,sans-serif; font-size:clamp(25px,3.2vw,34px); line-height:1.25; font-weight:600; letter-spacing:-.035em; margin-bottom:14px; }
+.resume-page .resume-heading .subtitle { font-size:15px; line-height:1.65; color:#c3cad2; max-width:650px; }
+.resume-page article h2 { font-family:Inter,system-ui,sans-serif; font-size:17px; font-weight:600; line-height:1.5; letter-spacing:.005em; padding-bottom:12px; margin-bottom:20px; border-bottom-color:rgba(255,255,255,.12); }
+.resume-page article h3 { font-size:15px; line-height:1.7; font-weight:600; }
+.resume-page article { font-size:15px; line-height:1.85; }
+.resume-page .contact { font-size:13px; line-height:1.8; }
+.resume-page .entry-heading > span { font-size:13px; }
+@media(max-width:640px) { .resume-page article { font-size:16px; } .resume-page .resume-heading h1 { font-size:25px; } .resume-page .resume-heading .subtitle { font-size:14px; } }
+
+.matrix-preview-controls { left:auto; right:14px; padding:0; background:transparent; border:0; box-shadow:none; }
+.matrix-preview-controls button { padding:7px 11px; background:rgba(17,19,23,.85); font-size:11px; color:#aeb5bf; }
