@@ -4,7 +4,13 @@ try{
 const THREE=await import('./three.module.js');
 const host=root.querySelector('.robot-render');
 const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.35;host.appendChild(renderer.domElement);
-const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(35,1,.1,100);camera.position.set(3.6,2.9,9.3);camera.lookAt(0,1.65,0);camera.zoom=1.35;camera.updateProjectionMatrix();
+const scene=new THREE.Scene(),camera=new THREE.OrthographicCamera(-5,5,2.6,-2.6,.1,100);camera.position.set(0,3.1,10);camera.lookAt(0,1.65,0);
+function resizeStage(){
+ const w=host.clientWidth,h=host.clientHeight;if(!w||!h)return;
+ renderer.setSize(w,h,false);camera.left=-w/h*2.6;camera.right=w/h*2.6;camera.top=2.6;camera.bottom=-2.6;camera.updateProjectionMatrix();
+}
+new ResizeObserver(resizeStage).observe(host);resizeStage();
+
 scene.add(new THREE.HemisphereLight(0xcfe2ed,0x15181c,2));const key=new THREE.DirectionalLight(0xffffff,4.5);key.position.set(-3,6,5);key.castShadow=true;key.shadow.mapSize.set(1024,1024);key.shadow.normalBias=.025;scene.add(key);const rim=new THREE.DirectionalLight(0x75d9bd,3.5);rim.position.set(3,4,-4);scene.add(rim);const fill=new THREE.DirectionalLight(0x99b8df,1.8);fill.position.set(-4,2,-2);scene.add(fill);
 const silver=new THREE.MeshStandardMaterial({color:0x89949f,metalness:.68,roughness:.32}),dark=new THREE.MeshStandardMaterial({color:0x252b33,metalness:.65,roughness:.36}),rubber=new THREE.MeshStandardMaterial({color:0x13171e,roughness:.8}),mint=new THREE.MeshStandardMaterial({color:0x8ce7ca,emissive:0x3bad88,emissiveIntensity:.6,roughness:.3}),glass=new THREE.MeshStandardMaterial({color:0x1a3440,metalness:.65,roughness:.13}),white=new THREE.MeshStandardMaterial({color:0xbec9cf,metalness:.45,roughness:.25});
 const inkMaterial=new THREE.MeshStandardMaterial({color:0x35434b,metalness:.7,roughness:.38});
@@ -95,17 +101,22 @@ function frame(now){requestAnimationFrame(frame);if(frameClock&&now-frameClock<f
 let x=0,hy=0,hz=0,heading=0,walking=false,cycle=0,greeting=false;
 // Reference: 44 px/s at the design scale; 11.5 rad/s duck gait.
 const viewportHeight=host.clientHeight||290;
-const unitsToPixels=camera.zoom*viewportHeight/(2*Math.tan(35*Math.PI/360)*camera.position.length());
+const unitsToPixels=viewportHeight/5.2;
 const worldSpeed=44/unitsToPixels;
-const restingX=-1.65;const travelDistance=5.6-restingX;const entranceTime=travelDistance/worldSpeed;
+const textRects=[...document.querySelectorAll('.hero-name-first,.hero-name-last')].map(el=>el.getBoundingClientRect());
+const textRight=Math.max(...textRects.map(rect=>rect.right));
+const targetPx=Math.min(innerWidth-100,textRight+125);
+const restingX=(targetPx-innerWidth/2)/unitsToPixels;
+const outsideX=(innerWidth/2+140)/unitsToPixels;
+const travelDistance=outsideX-restingX;const entranceTime=travelDistance/worldSpeed;
 // Derive travel timing from the actual rendered stage instead of fixed easing.
 const arrival=entranceTime,helloStart=arrival+.45,helloEnd=helloStart+2,exitStart=helloEnd+.45,endTime=exitStart+entranceTime;
 const time=reducedMotion.matches?helloStart+.3:t%(endTime+.65);
-if(time<arrival){x=Math.max(restingX,5.6-worldSpeed*time);heading=-1.35;walking=true;cycle=time*11.5;}
+if(time<arrival){x=Math.max(restingX,outsideX-worldSpeed*time);heading=-1.35;walking=true;cycle=time*11.5;}
 else if(time<helloStart){x=restingX;heading=-1.35+1.77*ease((time-arrival)/.45);}
 else if(time<helloEnd){x=restingX;heading=.42;greeting=true;const q=(time-helloStart)/2;hz=Math.sin(q*Math.PI*2)*.16;}
 else if(time<exitStart){x=restingX;heading=.42+(.95-.42)*ease((time-helloEnd)/.45);}
-else{x=Math.min(5.6,restingX+worldSpeed*(time-exitStart));heading=.95;walking=time<endTime;cycle=(time-exitStart)*11.5;}
+else{x=Math.min(outsideX,restingX+worldSpeed*(time-exitStart));heading=.95;walking=time<endTime;cycle=(time-exitStart)*11.5;}
 const step=walking?Math.sin(cycle):0;
 const waddle=walking?Math.cos(cycle):0;
 const greetAge=greeting?time-helloStart:0;
@@ -152,6 +163,6 @@ feet.forEach((part,i)=>{
 });
 pool.position.x=x;pool.position.z=bot.position.z;pool.material.opacity=time>exitStart+entranceTime*.7?Math.max(0,1-(time-exitStart-entranceTime*.7)/(entranceTime*.3)):1;pool.scale.setScalar(1-excitedHop*.2);
 feet.forEach((part,i)=>{const wp=part.foot.getWorldPosition(new THREE.Vector3());footShadows[i].position.set(wp.x,.006,wp.z);footShadows[i].material.opacity=Math.max(.15,1-(wp.y-.065)*3);footShadows[i].rotation.z=-heading;});
-const w=host.clientWidth,h=host.clientHeight;if(w&&h){if(renderer.domElement.width!==Math.round(w*renderer.getPixelRatio())||renderer.domElement.height!==Math.round(h*renderer.getPixelRatio())){renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()}renderer.render(scene,camera)}
+if(host.clientWidth&&host.clientHeight)renderer.render(scene,camera);
 }requestAnimationFrame(frame);
 }catch(error){root.hidden=true;console.error('Robot companion unavailable:',error)}

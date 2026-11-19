@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
     rel="stylesheet"
   />
   <link rel="stylesheet" href="./styles.css" />
@@ -115,6 +115,16 @@
     @media(min-width:768px) and (max-width:1100px) { .hero-name-row { grid-template-columns:minmax(0,1.8fr) minmax(0,1fr); } #hero-robot { height:260px; margin-top:-70px; margin-bottom:-30px; } #home-hero h1 { font-size:clamp(2.5rem,5.5vw,4rem); } }
     @media(max-width:767px) { .hero-name-row { display:block; } #hero-robot { display:none; } }
 
+    .hero-name-row { position:relative; display:block; }
+    #home-hero h1 { position:relative; z-index:2; max-width:700px; font-family:'Space Grotesk',Inter,sans-serif; font-weight:500; letter-spacing:-.045em; }
+    .hero-name-first, .hero-name-last { display:block; width:fit-content; max-width:100%; }
+    .hero-name-first { background:linear-gradient(165deg,#fff 10%,#e2e5e9 60%,#a7b4be); background-clip:text; -webkit-background-clip:text; color:transparent; }
+    .hero-name-last { font-family:'Instrument Serif',Georgia,serif; font-style:italic; font-weight:400; font-size:1.16em; line-height:1.06; letter-spacing:-.025em; color:#cce7df; }
+    #hero-robot { position:absolute; left:calc(50% - 50vw); top:50%; transform:translateY(-53%); width:100vw; height:330px; margin:0; pointer-events:none; }
+    #home-hero > p, .hero-scroll { position:relative; z-index:2; }
+    .hero-scroll { position:absolute; }
+    @media(min-width:768px) and (max-width:1100px) { .hero-name-row { display:block; } #home-hero h1 { max-width:62%; } #hero-robot { height:280px; margin:0; } }
+    @media(max-width:767px) { #hero-robot { display:none; } }
   </style>
 </head>
 <body class="min-h-screen bg-obsidian text-ink antialiased selection:bg-white/20 selection:text-white">
@@ -252,7 +262,7 @@
     <section id="view-work" class="space-y-14 sm:space-y-16">
       <div id="home-hero" class="max-w-3xl space-y-5">
         <div class="hero-name-row">
-          <h1 class="text-4xl sm:text-6xl font-medium tracking-tight leading-[1.06] text-white">Reddyvari Nithish Kumar Reddy</h1>
+          <h1 class="text-4xl sm:text-6xl font-medium tracking-tight leading-[1.06] text-white"><span class="hero-name-first">Reddyvari Nithish</span><span class="hero-name-last">Kumar Reddy</span></h1>
           <div id="hero-robot" aria-label="Robot hero companion">
             <div class="robot-render" role="img" aria-label="A small robot waddles in, greets with happy eyes and two high jumps, then walks away."></div>
           </div>
