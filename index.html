@@ -149,6 +149,11 @@
 <meta name="twitter:title" content="Reddyvari Nithish Kumar Reddy | Generative AI Engineer">
 <meta name="twitter:description" content="Explore projects in RAG, LLM systems, agentic tooling and inference optimization. Portfolio of Reddyvari Nithish Kumar Reddy.">
 <meta name="twitter:image" content="https://nithishkumar.pages.dev/assets/social-preview.jpg">
+<style>
+.synqra-demo-cta{display:inline-flex!important;align-items:center;gap:12px;padding:13px 21px!important;margin:8px 0 4px;background:#a7f3d0!important;color:#08261c!important;border:1px solid #d2ffeb!important;border-radius:16px;font-family:inherit;font-size:17px!important;font-weight:650;line-height:1.25;box-shadow:0 0 0 4px #6ee7b712,0 8px 30px #6ee7b719;transition:background .2s,transform .2s,box-shadow .2s;text-decoration:none}
+.synqra-demo-cta:hover{background:#c8ffe6!important;transform:translateY(-2px);box-shadow:0 0 0 5px #6ee7b71c,0 12px 35px #6ee7b726}.synqra-demo-cta:focus-visible{outline:2px solid #d2ffeb;outline-offset:5px}.synqra-demo-cta small{display:block;margin-top:3px;color:#22513f;font-size:11px;font-weight:500;letter-spacing:.025em}.synqra-demo-play{display:grid;place-items:center;width:32px;height:32px;border:1px solid #24513f40;border-radius:50%;font-size:12px;padding-left:2px}
+@media(prefers-reduced-motion:reduce){.synqra-demo-cta{transition:none}.synqra-demo-cta:hover{transform:none}}
+</style>
 </head>
 <body class="min-h-screen bg-obsidian text-ink antialiased selection:bg-white/20 selection:text-white">
   <!-- Top radial spotlight -->
@@ -327,7 +332,7 @@
                   Combines BM25 + dense vector retrieval with RRF, semantic chunking, Milvus/Zilliz, FastAPI, Flutter, Cognito auth, Nginx HTTPS with auto-renewal, and CloudWatch monitoring.
                 </p>
                 <div id="inline-stack-synqra" class="flex flex-wrap gap-1.5 pt-1"></div>
-                <a href="synqra-demo.html" onclick="event.stopPropagation()" onkeydown="event.stopPropagation()" class="inline-flex items-center px-4 py-2 rounded-full bg-emerald-300 text-zinc-950 text-sm font-medium hover:bg-emerald-200 transition-colors">Try Synqra</a>
+                <a href="synqra-demo.html" onclick="event.stopPropagation()" onkeydown="event.stopPropagation()" class="synqra-demo-cta"><span class="synqra-demo-play" aria-hidden="true">▶</span><span>Try Synqra<small>Interactive app demo</small></span></a>
                 <div class="pt-1">
                   <span class="open-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.07] border border-white/[0.14] text-xs font-mono text-white">
                     <span>Open Case Study</span>
@@ -1461,7 +1466,7 @@
           <div class="text-xs font-mono uppercase tracking-widest text-muted">${proj.tag}</div>
           <h1 class="text-3xl sm:text-5xl font-medium tracking-tight leading-[1.08] text-white">${proj.title}</h1>
           <p class="text-base sm:text-lg text-muted leading-relaxed max-w-3xl">${proj.subtitle}</p>
-          ${proj.id === 'synqra' ? '<a href="synqra-demo.html" class="inline-flex items-center px-5 py-2.5 rounded-full bg-emerald-300 text-zinc-950 text-sm font-medium hover:bg-emerald-200 transition-colors">Try Synqra · Interactive demo</a>' : ''}
+          ${proj.id === 'synqra' ? '<a href="synqra-demo.html" class="synqra-demo-cta"><span class="synqra-demo-play" aria-hidden="true">▶</span><span>Try Synqra<small>Interactive app demo</small></span></a>' : ''}
         </div>
 
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
