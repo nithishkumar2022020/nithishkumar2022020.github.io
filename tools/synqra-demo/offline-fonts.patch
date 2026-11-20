@@ -1,0 +1,66 @@
+diff --git a/lib/core/theme/app_theme.dart b/lib/core/theme/app_theme.dart
+index e2e390d..c541d1c 100644
+--- a/lib/core/theme/app_theme.dart
++++ b/lib/core/theme/app_theme.dart
+@@ -1,5 +1,4 @@
+ import 'package:flutter/material.dart';
+-import 'package:google_fonts/google_fonts.dart';
+ 
+ class AppTheme {
+   // Parchment Mode Palette
+@@ -62,7 +61,7 @@ class AppTheme {
+     double? letterSpacing,
+   }) {
+     try {
+-      return GoogleFonts.fraunces(
++      return TextStyle(fontFamily: 'Fraunces',
+         color: color,
+         fontSize: fontSize,
+         fontWeight: fontWeight,
+@@ -89,7 +88,7 @@ class AppTheme {
+     double? letterSpacing,
+   }) {
+     try {
+-      return GoogleFonts.newsreader(
++      return TextStyle(fontFamily: 'Newsreader',
+         color: color,
+         fontSize: fontSize,
+         fontWeight: fontWeight,
+@@ -115,7 +114,7 @@ class AppTheme {
+     double? letterSpacing,
+   }) {
+     try {
+-      return GoogleFonts.jetBrainsMono(
++      return TextStyle(fontFamily: 'JetBrainsMono',
+         color: color,
+         fontSize: fontSize,
+         fontWeight: fontWeight,
+@@ -141,6 +140,7 @@ class AppTheme {
+ 
+     return ThemeData(
+       useMaterial3: true,
++      fontFamily: 'JetBrainsMono',
+       brightness: isNocturne ? Brightness.dark : Brightness.light,
+       scaffoldBackgroundColor: bg,
+       primaryColor: vermilion,
+diff --git a/pubspec.yaml b/pubspec.yaml
+index 848104e..5696a8b 100644
+--- a/pubspec.yaml
++++ b/pubspec.yaml
+@@ -66,6 +66,16 @@ flutter:
+   # included with your application, so that you can use the icons in
+   # the material Icons class.
+   uses-material-design: true
++  fonts:
++    - family: Fraunces
++      fonts:
++        - asset: assets/fonts/Fraunces.ttf
++    - family: Newsreader
++      fonts:
++        - asset: assets/fonts/Newsreader.ttf
++    - family: JetBrainsMono
++      fonts:
++        - asset: assets/fonts/JetBrainsMono.ttf
+ 
+   # To add assets to your application, add an assets section, like this:
+   assets:
