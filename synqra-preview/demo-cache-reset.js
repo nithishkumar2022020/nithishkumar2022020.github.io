@@ -5,7 +5,7 @@
     if ('serviceWorker' in navigator) {
       const controlled = navigator.serviceWorker.controller;
       for (const registration of await navigator.serviceWorker.getRegistrations()) {
-        if (new URL(registration.scope).pathname.endsWith('/synqra-app/')) {
+        if (['/synqra-app/', '/synqra-preview/'].some(path => new URL(registration.scope).pathname.endsWith(path))) {
           await registration.unregister();
           reload ||= !!controlled;
         }
