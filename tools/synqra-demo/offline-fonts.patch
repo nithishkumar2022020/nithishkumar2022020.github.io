@@ -1,5 +1,5 @@
 diff --git a/lib/core/theme/app_theme.dart b/lib/core/theme/app_theme.dart
-index e2e390d..c541d1c 100644
+index e2e390d..7c73646 100644
 --- a/lib/core/theme/app_theme.dart
 +++ b/lib/core/theme/app_theme.dart
 @@ -1,5 +1,4 @@
@@ -8,7 +8,7 @@ index e2e390d..c541d1c 100644
  
  class AppTheme {
    // Parchment Mode Palette
-@@ -62,7 +61,7 @@ class AppTheme {
+@@ -62,13 +61,13 @@ class AppTheme {
      double? letterSpacing,
    }) {
      try {
@@ -17,7 +17,14 @@ index e2e390d..c541d1c 100644
          color: color,
          fontSize: fontSize,
          fontWeight: fontWeight,
-@@ -89,7 +88,7 @@ class AppTheme {
+         height: height,
+         letterSpacing: letterSpacing,
+-      ).copyWith(fontFamilyFallback: const ['serif', 'Times New Roman']);
++      ).copyWith(fontFamilyFallback: const ['NotoSansSymbols2', 'serif', 'Times New Roman']);
+     } catch (_) {
+       return TextStyle(
+         fontFamily: 'serif',
+@@ -89,13 +88,13 @@ class AppTheme {
      double? letterSpacing,
    }) {
      try {
@@ -26,7 +33,14 @@ index e2e390d..c541d1c 100644
          color: color,
          fontSize: fontSize,
          fontWeight: fontWeight,
-@@ -115,7 +114,7 @@ class AppTheme {
+         height: height,
+         letterSpacing: letterSpacing,
+-      ).copyWith(fontFamilyFallback: const ['serif', 'Times New Roman']);
++      ).copyWith(fontFamilyFallback: const ['NotoSansSymbols2', 'serif', 'Times New Roman']);
+     } catch (_) {
+       return TextStyle(
+         fontFamily: 'serif',
+@@ -115,12 +114,12 @@ class AppTheme {
      double? letterSpacing,
    }) {
      try {
@@ -35,6 +49,12 @@ index e2e390d..c541d1c 100644
          color: color,
          fontSize: fontSize,
          fontWeight: fontWeight,
+         letterSpacing: letterSpacing,
+-      ).copyWith(fontFamilyFallback: const ['monospace', 'Courier New']);
++      ).copyWith(fontFamilyFallback: const ['NotoSansSymbols2', 'monospace', 'Courier New']);
+     } catch (_) {
+       return TextStyle(
+         fontFamily: 'monospace',
 @@ -141,6 +140,7 @@ class AppTheme {
  
      return ThemeData(
@@ -43,15 +63,30 @@ index e2e390d..c541d1c 100644
        brightness: isNocturne ? Brightness.dark : Brightness.light,
        scaffoldBackgroundColor: bg,
        primaryColor: vermilion,
+diff --git a/lib/presentation/screens/matrix_overview_screen.dart b/lib/presentation/screens/matrix_overview_screen.dart
+index caab884..7ee00df 100644
+--- a/lib/presentation/screens/matrix_overview_screen.dart
++++ b/lib/presentation/screens/matrix_overview_screen.dart
+@@ -159,6 +159,7 @@ class _MatrixOverviewScreenState extends State<MatrixOverviewScreen>
+                               ],
+                             ),
+                           ),
++                          const SizedBox(width: 8),
+                           Container(
+                             padding: const EdgeInsets.symmetric(
+                               horizontal: 8,
 diff --git a/pubspec.yaml b/pubspec.yaml
-index 848104e..5696a8b 100644
+index 848104e..03be42d 100644
 --- a/pubspec.yaml
 +++ b/pubspec.yaml
-@@ -66,6 +66,16 @@ flutter:
+@@ -66,6 +66,19 @@ flutter:
    # included with your application, so that you can use the icons in
    # the material Icons class.
    uses-material-design: true
 +  fonts:
++    - family: NotoSansSymbols2
++      fonts:
++        - asset: assets/fonts/NotoSansSymbols2.ttf
 +    - family: Fraunces
 +      fonts:
 +        - asset: assets/fonts/Fraunces.ttf
