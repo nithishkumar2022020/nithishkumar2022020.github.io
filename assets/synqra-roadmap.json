@@ -13,7 +13,7 @@
       "purpose": "Learn RAG through implementation and create a reusable interface for AI experimentation.",
       "useCase": "Upload technical documents and ask questions grounded in their contents through the application.",
       "why": "The Flutter client makes testing and demonstrating the system easier than relying entirely on scripts or API clients, and provides a foundation for future AI capabilities.",
-      "groups": [{"title": "Foundation established", "items": ["End-to-end RAG with hybrid retrieval, semantic chunking, and page-level citations.", "Retrieval evaluation and Flutter–FastAPI integration.", "Cloud-based document and vector storage."]}],
+      "groups": [{"title": "Foundation established", "items": ["End-to-end RAG with hybrid retrieval, semantic chunking, Gemini generation, and page-level citations.", "Retrieval evaluation and Flutter–FastAPI integration.", "Cloud-based document and vector storage."]}],
       "outcome": "A functional document intelligence application with a reusable cross-platform interface.",
       "note": "Core Complete describes the usable foundation. Retrieval accuracy, citation precision, and performance remain open to continued improvement."
     },

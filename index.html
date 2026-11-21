@@ -321,13 +321,13 @@
                 <div class="flex flex-wrap items-center gap-2 text-xs font-mono text-muted">
                   <span class="text-emerald-300/90">Synqra</span>
                   <span>&middot;</span>
-                  <span>Cloud RAG &rsquo;26</span>
+                  <span>RAG → Observability</span>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-white group-hover:translate-x-0.5 transition-transform">
-                  Hybrid RAG with page citations &amp; AWS EC2 HTTPS deployment.
+                  Document intelligence, evolving toward AI-assisted observability.
                 </h2>
                 <p class="text-sm text-muted leading-relaxed">
-                  Combines BM25 + dense vector retrieval with RRF, semantic chunking, Milvus/Zilliz, FastAPI, Flutter, Cognito auth, Nginx HTTPS with auto-renewal. Observability integration is in progress.
+                  A deployed hybrid RAG application with a Flutter client for document queries and retrieval experiments. Now developing cloud observability; log processing and AI-assisted incident investigation are planned.
                 </p>
                 <div id="inline-stack-synqra" class="flex flex-wrap gap-1.5 pt-1"></div>
                 <a href="synqra-demo.html" onclick="event.stopPropagation()" onkeydown="event.stopPropagation()" class="synqra-demo-cta"><span class="synqra-demo-play" aria-hidden="true">▶</span><span>Try Synqra<small>Interactive app demo</small></span></a>
@@ -981,7 +981,7 @@
       AWS: {
         name: 'AWS',
         categories: ['Cloud & DevOps'],
-        sub: 'EC2 · Cognito · CloudWatch',
+        sub: 'EC2 · Cognito · CloudWatch (in progress)',
         glow: 'rgba(251, 191, 36, 0.16)',
         glowStrong: 'rgba(251, 191, 36, 0.55)',
         border: 'rgba(251, 191, 36, 0.35)',
@@ -1229,15 +1229,15 @@
     const PROJECTS = {
       synqra: {
         id: 'synqra',
-        tag: 'Cloud RAG \u201926',
-        title: 'Synqra \u2014 Cloud-Deployed Hybrid RAG Application (HTTPS)',
+        tag: 'RAG → Observability',
+        title: 'Synqra — From Document Intelligence to AI-Assisted Observability',
         subtitle:
-          'End-to-end retrieval-augmented generation system combining BM25 and dense vector search with RRF, semantic chunking, page-level citations, Flutter UI, and HTTPS deployment on AWS EC2.',
+          'A deployed hybrid RAG application built for hands-on experimentation, now progressing toward AI-assisted observability. Cloud infrastructure and observability are the current focus; log processing, incident investigation, and agentic workflows are planned.',
         nextId: 'speech',
         meta: [
           { label: 'Role', value: 'GenAI & Full-Stack Builder' },
           { label: 'Hosting & TLS', value: 'AWS EC2 \u00b7 Nginx HTTPS' },
-          { label: 'Retrieval Eval', value: '1.00 Hit Rate / MRR / NDCG' },
+          { label: 'Retrieval · 6 Questions', value: '1.00 Hit Rate / MRR / NDCG' },
           { label: 'Answer & Cite', value: '0.67 F1 \u00b7 0.38 Cite Prec.' },
         ],
         vizBadge: 'Embedding, BM25 & RRF Vector Space Visualizer',
@@ -1246,11 +1246,12 @@
           { label: 'Toggle Pipeline View', action: 'toggleSynqraHeroViz()' },
         ],
         overview:
-          'Synqra ingests documents into semantic chunks, indexes dense embeddings and lexical BM25 signals into Milvus / Zilliz Cloud, fuses rankings via Reciprocal Rank Fusion (RRF), and serves grounded answers with page-level citations over HTTPS via FastAPI, Docker Compose, Nginx, and a Flutter client.',
+          'Synqra began as a hands-on RAG engineering project. Its Flutter client supports document uploads, querying, and retrieval experiments; FastAPI combines semantic chunking, BM25 and dense-vector retrieval with RRF, and Gemini answers with page-level citations. Documents live in Cloudflare R2 and vectors in Milvus / Zilliz Cloud. The deployed RAG foundation is usable today. Current work strengthens cloud observability; future milestones add log processing and evidence-backed incident investigation on the backend, with Flutter evolving into a remote monitoring companion.',
         highlights: [
           'Implemented hybrid retrieval (BM25 + dense vectors with RRF) and semantic chunking with page-level citations.',
           'Hosted on AWS EC2 over HTTPS using Docker Compose and Nginx with automated TLS certificate renewal, AWS Cognito JWT auth, and GitHub Actions CI/CD publishing images to GHCR.',
           'Established application logging and health checks; CloudWatch integration, structured logs, custom metrics, and operational dashboards are in progress.',
+          'Planned next: event-driven log processing, source-backed incident investigation, agentic workflows, and an observability MVP with human review; these capabilities are not yet implemented.',
           'Evaluated on 6 benchmark questions: achieved 1.0 hit rate, MRR, and NDCG with 0.67 answer F1, while diagnosing citation over-reporting (0.38 precision) for targeted refinement.',
         ],
         stack: ['Python', 'FastAPI', 'Milvus', 'Zilliz Cloud', 'BM25 / Hybrid RRF', 'AWS', 'Docker', 'Nginx', 'GitHub Actions', 'Flutter'],
