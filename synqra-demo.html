@@ -55,11 +55,7 @@ addEventListener('message',event=>{
   loading.setAttribute('aria-hidden','true');app.removeAttribute('aria-hidden');app.tabIndex=0;app.inert=false;
 });
 document.getElementById('reset').addEventListener('click',()=>{prepareApp();app.src=app.dataset.src+'?reset='+Date.now()});
-// Paint the lightweight shell and loader before Flutter begins startup work.
-// Two frames ensure the entrance has reached the compositor first.
-requestAnimationFrame(()=>requestAnimationFrame(()=>{
-  setTimeout(()=>{app.src=app.dataset.src},180);
-}));
+app.src=app.dataset.src;
 </script>
 <script src="assets/character-field.js"></script>
 </body></html>

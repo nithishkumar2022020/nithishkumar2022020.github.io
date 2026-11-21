@@ -39,6 +39,9 @@
       navigating = false;clearTimeout(navigationTimer);
       location.assign(destination.href);
     };
+    // Start the route immediately; waiting for an exit animation makes the
+    // clicked project feel unresponsive. The demo animates its own entrance.
+    if (launch) { go(); return; }
     const main = document.querySelector('main');
     if (matchMedia('(prefers-reduced-motion: reduce)').matches || !main?.animate) { go(); return; }
     link.classList.add('is-launching');
