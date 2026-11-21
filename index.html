@@ -76,15 +76,11 @@
       transition: border-color 0.25s ease, box-shadow 0.25s ease;
     }
 
-    #flip-morph-overlay {
-      position: fixed;
-      z-index: 60;
-      pointer-events: none;
-      background: linear-gradient(160deg, rgba(24, 24, 29, 0.96), rgba(10, 10, 13, 0.99));
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-      will-change: left, top, width, height, border-radius, opacity;
-    }
+    /* Crossfade rendered views; keep the old content visible until the new view is ready. */
+    html.case-view-transition::view-transition-group(root) { animation: none; }
+    html.case-view-transition::view-transition-old(root) { animation: none; mix-blend-mode: normal; }
+    html.case-view-transition::view-transition-new(root) { animation: case-content-reveal 320ms cubic-bezier(.22,1,.36,1) both; mix-blend-mode: normal; }
+    @keyframes case-content-reveal { from { opacity: 0; } to { opacity: 1; } }
     @media (max-width: 480px) {
       header > div:first-child { flex-wrap: wrap; height: auto; min-height: 64px; padding-top: 12px; padding-bottom: 12px; }
       header > div:first-child > div:last-child { width: 100%; justify-content: flex-end; }
@@ -165,8 +161,6 @@
     style="background: radial-gradient(ellipse 65% 55% at 50% 0%, rgba(255, 255, 255, 0.07), rgba(9, 9, 11, 0) 72%);"
   ></div>
 
-  <!-- FLIP card morph overlay -->
-  <div id="flip-morph-overlay" class="hidden"></div>
 
   <!-- Toast notification -->
   <div
@@ -1367,7 +1361,7 @@
       },
     };
 
-    // Navigation & FLIP morph state
+    // Navigation and case-study transition state
     let currentView = 'work';
     let activeCaseStudyId = null;
     let lastClickedCardEl = null;
@@ -1543,30 +1537,53 @@
     }
 
     let morphInProgress = false;
-    function caseMorphRect() {
-      const main = document.getElementById('app-main');
-      const rect = main.getBoundingClientRect();
-      const css = getComputedStyle(main);
-      const left = rect.left + parseFloat(css.paddingLeft);
-      const width = rect.width - parseFloat(css.paddingLeft) - parseFloat(css.paddingRight);
-      const top = document.querySelector('header').getBoundingClientRect().height + 24;
-      return { left, top, width, height: Math.max(120, window.innerHeight - top - 24) };
+    function focusCaseHeading() {
+      const heading = document.querySelector('#case-study-content h1');
+      if (heading) { heading.tabIndex = -1; heading.focus({preventScroll:true}); }
     }
-    function placeMorph(overlay, rect) {
-      Object.assign(overlay.style, Object.fromEntries(['left','top','width','height'].map(key => [key, rect[key] + 'px'])));
+    function transitionCaseView(update, visibleSection, after) {
+      if (morphInProgress) return;
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) { update(); after?.(); return; }
+      morphInProgress = true;
+      let updated = false;
+      const swap = () => { update(); updated = true; };
+      const finish = () => {
+        document.documentElement.classList.remove('case-view-transition');
+        morphInProgress = false;
+        after?.();
+      };
+      const reveal = () => {
+        if (!updated) swap();
+        const section = document.getElementById(visibleSection);
+        if (!section?.animate) { finish(); return; }
+        const animation = section.animate([
+          {opacity:.72, transform:'translateY(8px)'},
+          {opacity:1, transform:'translateY(0)'}
+        ], {duration:300, easing:'cubic-bezier(.22,1,.36,1)'});
+        animation.finished.then(finish, finish);
+      };
+      if (!document.startViewTransition) { reveal(); return; }
+      try {
+        document.documentElement.classList.add('case-view-transition');
+        const transition = document.startViewTransition(swap);
+        transition.finished.then(finish, () => {
+          if (!updated) swap();
+          finish();
+        });
+      } catch (_) {
+        document.documentElement.classList.remove('case-view-transition');
+        reveal();
+      }
     }
     function openCaseStudyWithMorph(projectId, sourceCardEl) {
       if (morphInProgress) return;
-      if (activeCaseStudyId) {
-        renderCaseStudy(projectId);
-        window.scrollTo({top:0, behavior:'instant'});
-        return;
+      const alreadyInCase = !!activeCaseStudyId;
+      if (!alreadyInCase) {
+        savedWorkScrollY = window.scrollY || 0;
+        lastClickedCardEl = sourceCardEl || document.getElementById(`card-${projectId}`);
       }
-      savedWorkScrollY = window.scrollY || 0;
-      lastClickedCardEl = sourceCardEl || document.getElementById(`card-${projectId}`);
-      const overlay = document.getElementById('flip-morph-overlay');
-      const main = document.getElementById('app-main');
-      const showCase = () => {
+      transitionCaseView(() => {
         document.getElementById('view-work').classList.add('hidden');
         document.getElementById('view-info').classList.add('hidden');
         document.getElementById('view-case-study').classList.remove('hidden');
@@ -1574,61 +1591,21 @@
         currentView = 'case-study';
         renderCaseStudy(projectId);
         window.scrollTo({top:0, behavior:'instant'});
-      };
-      if (!lastClickedCardEl || matchMedia('(prefers-reduced-motion: reduce)').matches) { showCase(); return; }
-      morphInProgress = true;
-      overlay.classList.remove('hidden');
-      overlay.style.transition = 'none';
-      placeMorph(overlay, lastClickedCardEl.getBoundingClientRect());
-      overlay.style.borderRadius = '24px';
-      overlay.style.opacity = '1';
-      const target = caseMorphRect();
-      main.style.opacity = '0.35';
-      // Commit the initial bounds before transitioning to the measured page frame.
-      overlay.getBoundingClientRect();
-      requestAnimationFrame(() => {
-        overlay.style.transition = 'all 460ms cubic-bezier(0.22,1,0.36,1)';
-        placeMorph(overlay, target);
-        overlay.style.borderRadius = '24px';
-      });
-      setTimeout(() => {
-        showCase();
-        main.style.opacity = '1';
-        overlay.style.transition = 'opacity 200ms ease';
-        overlay.style.opacity = '0';
-        setTimeout(() => { overlay.classList.add('hidden'); morphInProgress = false; }, 210);
-      }, 470);
+      }, 'view-case-study', focusCaseHeading);
     }
     function closeCaseStudyWithMorph() {
-      if (morphInProgress) return;
-      const overlay = document.getElementById('flip-morph-overlay');
-      const main = document.getElementById('app-main');
-      const start = caseMorphRect();
-      destroyHeroVisualizer();
-      activeCaseStudyId = null;
-      currentView = 'work';
-      document.getElementById('view-case-study').classList.add('hidden');
-      document.getElementById('view-info').classList.add('hidden');
-      document.getElementById('view-work').classList.remove('hidden');
-      updateNavSlider('work');
-      window.scrollTo({top:savedWorkScrollY, behavior:'instant'});
-      mountWorkVisualizers();
-      if (!lastClickedCardEl || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      morphInProgress = true;
-      overlay.classList.remove('hidden');
-      overlay.style.transition = 'none';
-      placeMorph(overlay, start);
-      overlay.style.borderRadius = '24px';
-      overlay.style.opacity = '0.9';
-      main.style.opacity = '0.65';
-      overlay.getBoundingClientRect();
-      requestAnimationFrame(() => {
-        overlay.style.transition = 'all 400ms cubic-bezier(0.22,1,0.36,1)';
-        placeMorph(overlay, lastClickedCardEl.getBoundingClientRect());
-        overlay.style.opacity = '0';
-        main.style.opacity = '1';
-      });
-      setTimeout(() => { overlay.classList.add('hidden'); morphInProgress = false; }, 420);
+      if (morphInProgress || !activeCaseStudyId) return;
+      transitionCaseView(() => {
+        destroyHeroVisualizer();
+        activeCaseStudyId = null;
+        currentView = 'work';
+        document.getElementById('view-case-study').classList.add('hidden');
+        document.getElementById('view-info').classList.add('hidden');
+        document.getElementById('view-work').classList.remove('hidden');
+        updateNavSlider('work');
+        window.scrollTo({top:savedWorkScrollY, behavior:'instant'});
+        mountWorkVisualizers();
+      }, 'view-work', () => lastClickedCardEl?.focus({preventScroll:true}));
     }
 
     document.addEventListener('keydown', (e) => {
@@ -1735,6 +1712,7 @@
         });
 
         this.resize();
+        this.draw();
         this._onResize = () => this.resize();
         window.addEventListener('resize', this._onResize);
         this.start();
