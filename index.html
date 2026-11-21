@@ -154,6 +154,8 @@
 .synqra-demo-cta:hover{background:#c8ffe6!important;transform:translateY(-2px);box-shadow:0 0 0 5px #6ee7b71c,0 12px 35px #6ee7b726}.synqra-demo-cta:focus-visible{outline:2px solid #d2ffeb;outline-offset:5px}.synqra-demo-cta small{display:block;margin-top:3px;color:#22513f;font-size:11px;font-weight:500;letter-spacing:.025em}.synqra-demo-play{display:grid;place-items:center;width:32px;height:32px;border:1px solid #24513f40;border-radius:50%;font-size:12px;padding-left:2px}
 @media(prefers-reduced-motion:reduce){.synqra-demo-cta{transition:none}.synqra-demo-cta:hover{transform:none}}
 </style>
+<link rel="stylesheet" href="assets/project-roadmap.css">
+<script src="assets/project-roadmap.js" defer></script>
 </head>
 <body class="min-h-screen bg-obsidian text-ink antialiased selection:bg-white/20 selection:text-white">
   <!-- Top radial spotlight -->
@@ -329,7 +331,7 @@
                   Hybrid RAG with page citations &amp; AWS EC2 HTTPS deployment.
                 </h2>
                 <p class="text-sm text-muted leading-relaxed">
-                  Combines BM25 + dense vector retrieval with RRF, semantic chunking, Milvus/Zilliz, FastAPI, Flutter, Cognito auth, Nginx HTTPS with auto-renewal, and CloudWatch monitoring.
+                  Combines BM25 + dense vector retrieval with RRF, semantic chunking, Milvus/Zilliz, FastAPI, Flutter, Cognito auth, Nginx HTTPS with auto-renewal. Observability integration is in progress.
                 </p>
                 <div id="inline-stack-synqra" class="flex flex-wrap gap-1.5 pt-1"></div>
                 <a href="synqra-demo.html" onclick="event.stopPropagation()" onkeydown="event.stopPropagation()" class="synqra-demo-cta"><span class="synqra-demo-play" aria-hidden="true">▶</span><span>Try Synqra<small>Interactive app demo</small></span></a>
@@ -1252,7 +1254,7 @@
         highlights: [
           'Implemented hybrid retrieval (BM25 + dense vectors with RRF) and semantic chunking with page-level citations.',
           'Hosted on AWS EC2 over HTTPS using Docker Compose and Nginx with automated TLS certificate renewal, AWS Cognito JWT auth, and GitHub Actions CI/CD publishing images to GHCR.',
-          'Instrumented CloudWatch logging, infrastructure monitoring, and custom metrics for RAG latency, API performance, and vector DB operations.',
+          'Established application logging and health checks; CloudWatch integration, structured logs, custom metrics, and operational dashboards are in progress.',
           'Evaluated on 6 benchmark questions: achieved 1.0 hit rate, MRR, and NDCG with 0.67 answer F1, while diagnosing citation over-reporting (0.38 precision) for targeted refinement.',
         ],
         stack: ['Python', 'FastAPI', 'Milvus', 'Zilliz Cloud', 'BM25 / Hybrid RRF', 'AWS', 'Docker', 'Nginx', 'GitHub Actions', 'Flutter'],
@@ -1534,6 +1536,7 @@
             </button>
           </div>
         </div>
+        ${proj.id === 'synqra' ? '<project-roadmap src="assets/synqra-roadmap.json"></project-roadmap>' : ''}
       `;
 
       mountHeroVisualizer(proj.id);

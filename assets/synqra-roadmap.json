@@ -1,0 +1,70 @@
+{
+  "title": "Development roadmap",
+  "intro": "Synqra began as a hands-on way to learn RAG beyond theory. A Flutter client made uploads, querying, and retrieval experiments accessible. The next step is to apply that foundation to operational evidence and incident investigation.",
+  "client": {
+    "current": "An interactive client for document uploads, RAG experimentation, retrieval testing, and querying.",
+    "future": "A remote companion for system health, alerts, and AI-generated incident findings.",
+    "engine": "Log processing and AI investigation will run independently on the backend."
+  },
+  "milestones": [
+    {
+      "id": "M1", "title": "RAG Foundation & Cross-Platform Application", "status": "Core Complete", "state": "complete",
+      "purpose": "Learn RAG through implementation and create a reusable interface for AI experimentation.",
+      "useCase": "Upload technical documents and ask questions grounded in their contents through the application.",
+      "why": "The Flutter client makes testing and demonstrating the system easier than relying entirely on scripts or API clients, and provides a foundation for future AI capabilities.",
+      "groups": [{"title": "Foundation established", "items": ["End-to-end RAG with hybrid retrieval, semantic chunking, and page-level citations.", "Retrieval evaluation and Flutter–FastAPI integration.", "Cloud-based document and vector storage."]}],
+      "outcome": "A functional document intelligence application with a reusable cross-platform interface.",
+      "note": "Core Complete describes the usable foundation. Retrieval accuracy, citation precision, and performance remain open to continued improvement."
+    },
+    {
+      "id": "M2", "title": "Cloud Infrastructure, Security & Observability", "status": "In Progress", "state": "current",
+      "purpose": "Learn how to deploy, secure, monitor, and maintain an AI application in a cloud environment.",
+      "useCase": "Run authenticated queries against the deployed backend and check availability through health checks, while operational visibility is developed.",
+      "why": "A working AI pipeline also needs a reliable deployment lifecycle, access controls, and evidence about system behavior under real operating conditions.",
+      "groups": [
+        {"title": "Deployment foundation", "items": ["EC2, Docker Compose, Nginx, and HTTPS with certificate renewal.", "Cognito JWT authentication and GitHub Actions deployment through GHCR.", "Cloudflare R2 document storage and Zilliz Cloud vector storage."]},
+        {"title": "Available in the codebase", "items": ["Application log calls for ingestion, retrieval, and query failures.", "An API health endpoint and API / Nginx container health checks."]},
+        {"title": "Current work · not yet verified complete", "items": ["CloudWatch integration and end-to-end verification.", "Structured application logging and API performance metrics.", "Retrieval and generation latency, and vector database operation metrics.", "Operational dashboards, alerting, and reliability improvements."]}
+      ],
+      "outcome": "A securely deployed and increasingly observable AI application.",
+      "note": "Existing logging and health checks establish a baseline. CloudWatch delivery, custom metrics, dashboards, and alerts remain ongoing work."
+    },
+    {
+      "id": "M3", "title": "Event-Driven Log Processing", "status": "Planned", "state": "planned",
+      "purpose": "Build a reliable operational data pipeline, separate from interactive user requests.",
+      "useCase": "Collect logs from a running application and search for errors, warnings, and other operational events.",
+      "why": "Incident investigation first needs a dependable way to collect, normalize, store, and search operational evidence.",
+      "groups": [{"title": "Planned capabilities", "items": ["Application log ingestion with structured parsing and normalization.", "Kafka-based streaming and asynchronous log consumers.", "Searchable storage with severity, service, and event-time filters.", "An initial log exploration interface."]}],
+      "focus": "Event-driven architecture, asynchronous processing, data pipelines, and indexing.",
+      "outcome": "A functional log ingestion and processing pipeline."
+    },
+    {
+      "id": "M4", "title": "AI-Assisted Incident Investigation", "status": "Planned", "state": "planned",
+      "purpose": "Extend retrieval to connect application failures with supporting logs, documentation, and runbooks.",
+      "useCase": "Ask why an application is experiencing errors and receive an explanation supported by logs and technical documentation.",
+      "why": "Logs describe what happened; documentation and runbooks provide context about expected behavior and possible solutions.",
+      "groups": [{"title": "Planned capabilities", "items": ["Natural-language queries and relevant log retrieval.", "Documentation and runbook retrieval with operational evidence correlation.", "Incident summaries and source-backed troubleshooting recommendations.", "Evaluation of investigation accuracy."]}],
+      "focus": "Evidence retrieval, context construction, correlation, and LLM evaluation.",
+      "outcome": "An AI-assisted incident investigation interface."
+    },
+    {
+      "id": "M5", "title": "Agentic Investigation Workflows", "status": "Planned", "state": "planned",
+      "purpose": "Coordinate multi-step investigations across operational tools and available evidence.",
+      "useCase": "An agent investigates an API failure through log searches, metric inspection, and documentation retrieval, then produces a diagnostic report.",
+      "why": "Complex failures often require several evidence sources and investigation steps beyond a single retrieval-and-generation operation.",
+      "groups": [{"title": "Planned capabilities", "items": ["Tool-calling agents for log search, metrics inspection, and documentation retrieval.", "Multi-step orchestration with agent state management and execution tracing.", "Agent evaluation, failure handling, and evidence-backed diagnostic reports."]}],
+      "focus": "Tool calling, state management, workflow reliability, and evaluation.",
+      "outcome": "An agent-assisted incident investigation system."
+    },
+    {
+      "id": "M6", "title": "AI-Assisted Observability MVP", "status": "Planned", "state": "planned",
+      "purpose": "Bring monitoring, alerting, log processing, and AI investigation into one usable operational workflow.",
+      "useCase": "Detect a failure, generate an alert, investigate the incident with AI, and review the findings through a monitoring interface.",
+      "why": "The individual capabilities become useful together when engineers can follow an incident from detection to an evidence-backed investigation.",
+      "groups": [{"title": "Planned capabilities", "items": ["Service health monitoring, incident detection, alerting, and incident history.", "AI-generated summaries and visibility into agent investigations.", "Remote monitoring and incident review through Flutter.", "Human approval for sensitive actions, plus reliability and security testing."]}],
+      "focus": "AIOps, reliability engineering, incident management, and agentic workflows.",
+      "outcome": "An integrated AI-assisted observability MVP with human review.",
+      "note": "This milestone targets assisted investigation. Fully autonomous remediation, advanced scaling, and production-readiness validation remain beyond the MVP."
+    }
+  ]
+}
