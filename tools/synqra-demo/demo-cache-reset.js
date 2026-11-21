@@ -1,3 +1,7 @@
+// Reveal the app only after Flutter has painted its first real frame.
+window.addEventListener('flutter-first-frame', () => {
+  if (window.parent !== window) window.parent.postMessage({type:'synqra-demo-ready'}, location.origin);
+}, {once:true});
 // A portfolio demo should load the current build, not retain a stale PWA shell.
 (async () => {
   let reload = false;

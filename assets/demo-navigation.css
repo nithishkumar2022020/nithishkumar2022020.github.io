@@ -1,0 +1,26 @@
+/* Progressive enhancement for same-origin page navigation. */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:none;mix-blend-mode:normal}
+::view-transition-new(root){animation:demo-route-reveal 520ms cubic-bezier(.22,1,.36,1) both;mix-blend-mode:normal}
+@keyframes demo-route-reveal{from{opacity:0}to{opacity:1}}
+.synqra-demo-cta.is-launching,.roadmap-demo-link.is-launching{box-shadow:0 0 0 5px #a7f3d019,0 0 32px #6ee7b72b}
+.demo-page .loading{opacity:1;transform:translateY(0);visibility:visible;transition:opacity 450ms ease,transform 450ms ease,visibility 0s 450ms}
+.demo-page #app{opacity:0;pointer-events:none;transition:opacity 650ms ease}
+.demo-page .screen.app-ready #app{opacity:1;pointer-events:auto}
+.demo-page .screen.app-ready .loading{opacity:0;transform:translateY(-8px);visibility:hidden}
+.demo-loader-track{display:block;position:relative;width:120px;height:2px;margin:20px auto 0;overflow:hidden;background:#1a16141a;border-radius:2px}
+.demo-loader-track:after{content:'';position:absolute;left:0;top:0;width:45%;height:100%;background:#4c785b;animation:demo-loader-sweep 1.6s ease-in-out infinite}
+@keyframes demo-loader-sweep{0%{transform:translateX(-110%)}100%{transform:translateX(330%)}}
+@media(prefers-reduced-motion:no-preference){
+.demo-page .intro{animation:demo-copy-arrive 680ms cubic-bezier(.16,1,.3,1) both}
+.demo-page .phone-column{animation:demo-phone-arrive 900ms cubic-bezier(.16,1,.3,1) 100ms both}
+.demo-page header{animation:demo-header-arrive 500ms ease both}
+}
+@keyframes demo-copy-arrive{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes demo-phone-arrive{from{opacity:0;transform:translate(30px,24px)}to{opacity:1;transform:translate(0,0)}}
+@keyframes demo-header-arrive{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){
+::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+.demo-page .intro,.demo-page .phone-column,.demo-page header,.demo-loader-track:after{animation:none!important}
+.demo-page .loading,.demo-page #app{transition:none!important;transform:none!important}
+}

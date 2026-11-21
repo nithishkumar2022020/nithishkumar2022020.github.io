@@ -20,14 +20,15 @@ iframe{display:block;width:448px;height:929.333333px;min-height:0;flex:none;bord
 @media(max-width:700px){header{padding:18px 20px}header .label{font-size:10px}main{display:flex;flex-direction:column;gap:24px;padding:20px 18px}.intro{padding:20px;width:100%;max-width:100%}.intro h1{font-size:34px;margin:12px 0}.intro>p{font-size:15px;margin-bottom:0}.steps,.note{display:none}.phone-column{width:100%;max-width:470px;align-self:center}.toolbar{padding:0 2px}.fallback{margin-bottom:8px}}
 @media(prefers-reduced-motion:no-preference){.loading span{animation:pulse 1.5s ease-in-out infinite}@keyframes pulse{50%{opacity:.4}}}
 </style>
+<link rel="stylesheet" href="assets/demo-navigation.css">
 </head>
-<body>
+<body class="demo-page">
 <header><a href="./">Back to portfolio</a><span class="label">Interactive demo · Sample data</span></header>
 <main>
 <section class="intro"><span class="label">Synqra / Mobile experience</span><h1>Your documents.<br>A conversation away.</h1><p>Explore Synqra’s actual app interface, from choosing documents to following the evidence behind an answer.</p>
 <ul class="steps"><li><strong>Choose your sources</strong><p>Open Corpus to explore the sample documents and select a scope for your question.</p></li><li><strong>Ask and inspect</strong><p>Try “How does hybrid retrieval work?” Watch the sample answer arrive, then open a citation to inspect its evidence.</p></li><li><strong>Look under the hood</strong><p>Explore the matrix and graph views, or switch between the app’s light and dark themes.</p></li></ul>
 <p class="note">This is a frontend demo with simulated responses and sample data. Questions use the existing sample answer. Ingestion is simulated; no files are uploaded and no AI backend is contacted.</p></section>
-<section class="phone-column" aria-label="Synqra interactive app"><div class="toolbar"><span>Pixel 8 Pro · Interactive demo</span><button id="reset" type="button">Reset demo</button></div><div class="phone-stage"><div class="phone" aria-label="Pixel 8 Pro device mockup"><span class="side-key volume" aria-hidden="true"></span><span class="side-key power" aria-hidden="true"></span><div class="screen"><div class="device-status" aria-hidden="true"><span>9:41</span><span class="device-camera"></span><span class="device-icons"><svg width="13" height="11" viewBox="0 0 13 11" fill="currentColor"><rect x="0" y="8" width="2" height="3"/><rect x="3" y="6" width="2" height="5"/><rect x="6" y="3" width="2" height="8"/><rect x="9" width="2" height="11"/></svg><svg width="13" height="11" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3Q8 -2 15 3M4 6Q8 3 12 6M6 9Q8 7 10 9"/><circle cx="8" cy="11" r=".6" fill="currentColor"/></svg><span class="device-battery"></span></span></div><div class="loading" id="loading"><strong>Synqra</strong><span>Opening the interactive demo…</span></div><iframe id="app" title="Synqra app — sample data demo" src="synqra-preview/" allow="clipboard-write"></iframe><div class="device-gesture" aria-hidden="true"></div></div></div></div><a class="fallback" href="synqra-preview/">Open larger demo</a></section>
+<section class="phone-column" aria-label="Synqra interactive app"><div class="toolbar"><span>Pixel 8 Pro · Interactive demo</span><button id="reset" type="button">Reset demo</button></div><div class="phone-stage"><div class="phone" aria-label="Pixel 8 Pro device mockup"><span class="side-key volume" aria-hidden="true"></span><span class="side-key power" aria-hidden="true"></span><div class="screen" aria-busy="true"><div class="device-status" aria-hidden="true"><span>9:41</span><span class="device-camera"></span><span class="device-icons"><svg width="13" height="11" viewBox="0 0 13 11" fill="currentColor"><rect x="0" y="8" width="2" height="3"/><rect x="3" y="6" width="2" height="5"/><rect x="6" y="3" width="2" height="8"/><rect x="9" width="2" height="11"/></svg><svg width="13" height="11" viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3Q8 -2 15 3M4 6Q8 3 12 6M6 9Q8 7 10 9"/><circle cx="8" cy="11" r=".6" fill="currentColor"/></svg><span class="device-battery"></span></span></div><div class="loading" id="loading" role="status" aria-live="polite"><strong>Synqra</strong><span>Opening the interactive demo…</span><span class="demo-loader-track" aria-hidden="true"></span></div><iframe id="app" title="Synqra app — sample data demo" src="about:blank" data-src="synqra-preview/" allow="clipboard-write" aria-hidden="true" tabindex="-1"></iframe><div class="device-gesture" aria-hidden="true"></div></div></div></div><a class="fallback" href="synqra-preview/">Open larger demo</a></section>
 </main>
 <script>
 const app=document.getElementById('app');const loading=document.getElementById('loading');
@@ -41,8 +42,19 @@ function fitPixel(){
 }
 new ResizeObserver(fitPixel).observe(column);addEventListener('resize',fitPixel);fitPixel();
 
-app.addEventListener('load',()=>{loading.classList.add('hidden')});
-document.getElementById('reset').addEventListener('click',()=>{loading.classList.remove('hidden');app.src='synqra-preview/?reset='+Date.now()});
+const screen=document.querySelector('.screen');
+app.inert=true;
+function prepareApp(){
+  screen.classList.remove('app-ready');screen.setAttribute('aria-busy','true');
+  loading.removeAttribute('aria-hidden');app.setAttribute('aria-hidden','true');app.tabIndex=-1;app.inert=true;
+}
+addEventListener('message',event=>{
+  if(event.origin!==location.origin||event.source!==app.contentWindow||event.data?.type!=='synqra-demo-ready')return;
+  screen.classList.add('app-ready');screen.setAttribute('aria-busy','false');
+  loading.setAttribute('aria-hidden','true');app.removeAttribute('aria-hidden');app.tabIndex=0;app.inert=false;
+});
+document.getElementById('reset').addEventListener('click',()=>{prepareApp();app.src=app.dataset.src+'?reset='+Date.now()});
+app.src=app.dataset.src;
 </script>
 <script src="assets/character-field.js"></script>
 </body></html>
