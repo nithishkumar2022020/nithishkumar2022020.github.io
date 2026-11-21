@@ -11,7 +11,10 @@
         if (!response.ok) throw new Error('Roadmap unavailable');
         this.data = await response.json();
       } catch (error) {
-        if (error.name !== 'AbortError') this.innerHTML = '<p class="roadmap-loading">The roadmap could not load. Please refresh to try again.</p>';
+        if (error.name !== 'AbortError') {
+          this.innerHTML = '<p class="roadmap-loading">The roadmap could not load. Please refresh to try again.</p>';
+          this.dispatchEvent(new CustomEvent('roadmap-ready'));
+        }
       }
     }
     disconnectedCallback() { this.abort?.abort(); }
@@ -39,6 +42,7 @@
           </article>
         </li>`).join('')}</ol>
       </section>`;
+      this.dispatchEvent(new CustomEvent('roadmap-ready'));
     }
     get data() { return this._data; }
   }

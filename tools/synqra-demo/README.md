@@ -15,3 +15,5 @@ To rebuild in a checkout of that source revision:
 `/synqra-demo.html` supplies the responsive phone frame and reset control. All app/runtime assets are served locally. The source project's regular mobile startup remains unchanged.
 
 The demo loader reports `synqra-demo-ready` to its same-origin parent after Flutter’s `flutter-first-frame` event. The wrapper waits for this signal before fading from its loading screen to the app; retain this handshake when rebuilding. The shared demo navigation assets add the portfolio exit and demo entrance animations, with reduced-motion support.
+
+Demo launch stores the portfolio view, project, scroll position, and expanded milestones in session storage. The demo’s Back to Work link animates back and restores this context; the case study also retains its original work-card scroll position. Direct demo visits fall back to the selected-work section.

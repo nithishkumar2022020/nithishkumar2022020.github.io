@@ -1610,6 +1610,41 @@
       }, 'view-work', () => lastClickedCardEl?.focus({preventScroll:true}));
     }
 
+    // Preserve the launch context across the standalone demo document.
+    window.capturePortfolioReturnState = () => ({
+      view:currentView, projectId:activeCaseStudyId, scrollY:window.scrollY,
+      workScrollY:savedWorkScrollY, cardId:lastClickedCardEl?.id,
+      expandedMilestones:[...document.querySelectorAll('.roadmap-step')]
+        .filter(step => step.querySelector('details')?.open)
+        .map(step => step.querySelector('.roadmap-marker')?.textContent)
+    });
+    window.restorePortfolioReturnState = async state => {
+      if (!state) return;
+      destroyHeroVisualizer();destroyWorkVisualizers();
+      const inCase = state.view === 'case-study' && Object.hasOwn(PROJECTS,state.projectId);
+      currentView = inCase ? 'case-study' : state.view === 'info' ? 'info' : 'work';
+      activeCaseStudyId = null;
+      savedWorkScrollY = Number.isFinite(state.workScrollY) ? state.workScrollY : 0;
+      lastClickedCardEl = state.cardId ? document.getElementById(state.cardId) : null;
+      document.getElementById('view-work').classList.toggle('hidden',currentView !== 'work');
+      document.getElementById('view-info').classList.toggle('hidden',currentView !== 'info');
+      document.getElementById('view-case-study').classList.toggle('hidden',!inCase);
+      updateNavSlider(currentView === 'info' ? 'info' : 'work');
+      if (inCase) {
+        renderCaseStudy(state.projectId);
+        const roadmap = document.querySelector('project-roadmap');
+        if (roadmap && !roadmap.data) await new Promise(resolve => roadmap.addEventListener('roadmap-ready',resolve,{once:true}));
+        document.querySelectorAll('.roadmap-step').forEach(step => {
+          const details = step.querySelector('details');
+          if (details) details.open = (state.expandedMilestones || []).includes(step.querySelector('.roadmap-marker')?.textContent);
+        });
+      } else if (currentView === 'work') mountWorkVisualizers();
+      window.scrollTo({top:Number.isFinite(state.scrollY) ? state.scrollY : 0,behavior:'instant'});
+      if (['.roadmap-demo-link','#case-study-content .synqra-demo-cta','#card-synqra .synqra-demo-cta'].includes(state.focusSelector)) {
+        document.querySelector(state.focusSelector)?.focus({preventScroll:true});
+      }
+    };
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') toggleContactCard(false);
       if (e.key === 'Escape' && activeCaseStudyId) {
