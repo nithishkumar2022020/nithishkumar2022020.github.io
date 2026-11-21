@@ -1,5 +1,6 @@
-/* Progressive enhancement for same-origin page navigation. */
-@view-transition{navigation:auto}
+/* Keep route entrances independent of iframe loading. Native cross-document
+   snapshots can hold the portfolio until Flutter has initialized. */
+@view-transition{navigation:none}
 ::view-transition-old(root){animation:none;mix-blend-mode:normal}
 ::view-transition-new(root){animation:demo-route-reveal 520ms cubic-bezier(.22,1,.36,1) both;mix-blend-mode:normal}
 @keyframes demo-route-reveal{from{opacity:0}to{opacity:1}}
