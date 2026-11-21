@@ -6,6 +6,7 @@
     "future": "A remote companion for system health, alerts, and AI-generated incident findings.",
     "engine": "Log processing and AI investigation will run independently on the backend."
   },
+  "demo": {"href": "synqra-demo.html", "label": "Try the working demo"},
   "milestones": [
     {
       "id": "M1", "title": "RAG Foundation & Cross-Platform Application", "status": "Core Complete", "state": "complete",

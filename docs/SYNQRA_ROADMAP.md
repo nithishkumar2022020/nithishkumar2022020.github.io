@@ -20,3 +20,5 @@ The portfolio's interactive demo continues to use mock data; it is separate from
 ## Editing
 
 Update the JSON to change milestone copy or implementation state. Keep M1 Core Complete, M2 In Progress, and M3–M6 Planned unless there is implementation evidence for a change. Do not add dates, deadlines, forecast durations, or unsupported completion percentages. Keep detailed technical material in the expandable groups rather than duplicating the existing overview and stack.
+
+The In Progress status drives the active marker’s slow glow. Reduced-motion preferences disable it. The configured demo link appears on the last completed milestone in sequence and follows that milestone as statuses are edited. Status labels are canonical for presentation; no time-based status transitions occur.
