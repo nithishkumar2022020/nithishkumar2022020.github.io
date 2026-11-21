@@ -321,16 +321,16 @@
                 <div class="flex flex-wrap items-center gap-2 text-xs font-mono text-muted">
                   <span class="text-emerald-300/90">Synqra</span>
                   <span>&middot;</span>
-                  <span>RAG → Observability</span>
+                  <span>AI Log Analysis · In Development</span>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-medium tracking-tight text-white group-hover:translate-x-0.5 transition-transform">
-                  Document intelligence, evolving toward AI-assisted observability.
+                  AI-powered log analysis &amp; incident investigation.
                 </h2>
                 <p class="text-sm text-muted leading-relaxed">
-                  A deployed hybrid RAG application with a Flutter client for document queries and retrieval experiments. Now developing cloud observability; log processing and AI-assisted incident investigation are planned.
+                  Building an observability platform to connect application logs, metrics, and runbooks for evidence-backed incident investigation. Built on a deployed hybrid RAG foundation; cloud observability is in progress, with log pipelines and agentic investigation planned.
                 </p>
                 <div id="inline-stack-synqra" class="flex flex-wrap gap-1.5 pt-1"></div>
-                <a href="synqra-demo.html" onclick="event.stopPropagation()" onkeydown="event.stopPropagation()" class="synqra-demo-cta"><span class="synqra-demo-play" aria-hidden="true">▶</span><span>Try Synqra<small>Interactive app demo</small></span></a>
+                <a href="synqra-demo.html" onclick="event.stopPropagation()" onkeydown="event.stopPropagation()" class="synqra-demo-cta"><span class="synqra-demo-play" aria-hidden="true">▶</span><span>Try Synqra<small>Explore the RAG foundation</small></span></a>
                 <div class="pt-1">
                   <span class="open-pill inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.07] border border-white/[0.14] text-xs font-mono text-white">
                     <span>Open Case Study</span>
@@ -981,7 +981,7 @@
       AWS: {
         name: 'AWS',
         categories: ['Cloud & DevOps'],
-        sub: 'EC2 · Cognito · CloudWatch (in progress)',
+        sub: 'EC2 · Cognito · CloudWatch',
         glow: 'rgba(251, 191, 36, 0.16)',
         glowStrong: 'rgba(251, 191, 36, 0.55)',
         border: 'rgba(251, 191, 36, 0.35)',
@@ -1229,15 +1229,15 @@
     const PROJECTS = {
       synqra: {
         id: 'synqra',
-        tag: 'RAG → Observability',
-        title: 'Synqra — From Document Intelligence to AI-Assisted Observability',
+        tag: 'AI Log Analysis · In Development',
+        title: 'Synqra — AI-Powered Log Analysis & Incident Investigation',
         subtitle:
-          'A deployed hybrid RAG application built for hands-on experimentation, now progressing toward AI-assisted observability. Cloud infrastructure and observability are the current focus; log processing, incident investigation, and agentic workflows are planned.',
+          'An AI-assisted observability platform in development: bringing application logs, metrics, documentation, and runbooks together to investigate failures. A deployed hybrid RAG application provides the existing foundation.',
         nextId: 'speech',
         meta: [
           { label: 'Role', value: 'GenAI & Full-Stack Builder' },
-          { label: 'Hosting & TLS', value: 'AWS EC2 \u00b7 Nginx HTTPS' },
-          { label: 'Retrieval · 6 Questions', value: '1.00 Hit Rate / MRR / NDCG' },
+          { label: 'Current Stage', value: 'Cloud Infrastructure & Observability' },
+          { label: 'Retrieval Eval', value: '1.00 Hit Rate / MRR / NDCG' },
           { label: 'Answer & Cite', value: '0.67 F1 \u00b7 0.38 Cite Prec.' },
         ],
         vizBadge: 'Embedding, BM25 & RRF Vector Space Visualizer',
@@ -1246,12 +1246,12 @@
           { label: 'Toggle Pipeline View', action: 'toggleSynqraHeroViz()' },
         ],
         overview:
-          'Synqra began as a hands-on RAG engineering project. Its Flutter client supports document uploads, querying, and retrieval experiments; FastAPI combines semantic chunking, BM25 and dense-vector retrieval with RRF, and Gemini answers with page-level citations. Documents live in Cloudflare R2 and vectors in Milvus / Zilliz Cloud. The deployed RAG foundation is usable today. Current work strengthens cloud observability; future milestones add log processing and evidence-backed incident investigation on the backend, with Flutter evolving into a remote monitoring companion.',
+          'Synqra is being developed into an AI-assisted log analysis and incident investigation platform. The goal is to collect and normalize application logs, correlate failures with metrics and technical documentation, and produce source-backed diagnostic reports. Planned Kafka-based log pipelines will feed retrieval and multi-step investigation workflows on the backend. Its existing foundation is a cloud-deployed hybrid RAG system with semantic chunking, BM25 and dense retrieval fused through RRF, and page-level citations. Flutter currently supports document queries and retrieval experiments; it will evolve into a remote companion for system health, alerts, and investigation findings.',
         highlights: [
+          'Platform direction: searchable application logs, evidence-backed incident explanations, and tool-calling investigation workflows. Log processing and investigation capabilities are planned, not part of the current demo.',
           'Implemented hybrid retrieval (BM25 + dense vectors with RRF) and semantic chunking with page-level citations.',
           'Hosted on AWS EC2 over HTTPS using Docker Compose and Nginx with automated TLS certificate renewal, AWS Cognito JWT auth, and GitHub Actions CI/CD publishing images to GHCR.',
           'Established application logging and health checks; CloudWatch integration, structured logs, custom metrics, and operational dashboards are in progress.',
-          'Planned next: event-driven log processing, source-backed incident investigation, agentic workflows, and an observability MVP with human review; these capabilities are not yet implemented.',
           'Evaluated on 6 benchmark questions: achieved 1.0 hit rate, MRR, and NDCG with 0.67 answer F1, while diagnosing citation over-reporting (0.38 precision) for targeted refinement.',
         ],
         stack: ['Python', 'FastAPI', 'Milvus', 'Zilliz Cloud', 'BM25 / Hybrid RRF', 'AWS', 'Docker', 'Nginx', 'GitHub Actions', 'Flutter'],
@@ -1465,7 +1465,7 @@
           <div class="text-xs font-mono uppercase tracking-widest text-muted">${proj.tag}</div>
           <h1 class="text-3xl sm:text-5xl font-medium tracking-tight leading-[1.08] text-white">${proj.title}</h1>
           <p class="text-base sm:text-lg text-muted leading-relaxed max-w-3xl">${proj.subtitle}</p>
-          ${proj.id === 'synqra' ? '<a href="synqra-demo.html" class="synqra-demo-cta"><span class="synqra-demo-play" aria-hidden="true">▶</span><span>Try Synqra<small>Interactive app demo</small></span></a>' : ''}
+          ${proj.id === 'synqra' ? '<a href="synqra-demo.html" class="synqra-demo-cta"><span class="synqra-demo-play" aria-hidden="true">▶</span><span>Try Synqra<small>Explore the RAG foundation</small></span></a>' : ''}
         </div>
 
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">

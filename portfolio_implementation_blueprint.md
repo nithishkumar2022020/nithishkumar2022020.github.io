@@ -92,20 +92,20 @@ Each work card is a 12-column responsive card (`lg:col-span-5` text/stack/CTA on
 All canvases scale for retina displays using `dpr = Math.min(window.devicePixelRatio || 1, 2)` and pause offscreen card canvases using `IntersectionObserver` (`threshold: 0.05`).
 
 ### Project 1: Synqra (`id: "synqra"`)
-- **Card Tag:** `Synqra · RAG → Observability`
+- **Card Tag:** `Synqra · Cloud RAG '26`
 - **Card Headline:** `Hybrid RAG with page citations & AWS EC2 HTTPS deployment.`
-- **Card Summary:** Combines BM25 + dense vector retrieval with RRF, semantic chunking, Milvus/Zilliz, FastAPI, Flutter, Cognito auth, Nginx HTTPS with auto-renewal, with application logs and health checks; CloudWatch integration and operational dashboards are in progress.
+- **Card Summary:** Combines BM25 + dense vector retrieval with RRF, semantic chunking, Milvus/Zilliz, FastAPI, Flutter, Cognito auth, Nginx HTTPS with auto-renewal, and CloudWatch monitoring.
 - **Card Inline Stack:** `Python`, `FastAPI`, `Milvus`, `BM25 / Hybrid RRF`, `AWS`, `Docker`, `Nginx`, `Flutter`
 - **Card Visualizer (`data-viz="rag_flow"`):**
   - Renders an animated RAG flow stage with ingestion/chunking (`INGEST`, `CHUNK`) feeding `MILVUS DB`, and query routing (`QUERY` -> `EMBED` -> `BM25+RRF` -> `MILVUS DB` -> `CHUNKS` -> `PROMPT` -> `GEMINI` -> `ANSWER`) with moving teal, emerald, and sky packets and footer caption `INGEST -> SEMANTIC CHUNK -> EMBED / BM25+RRF -> CITATIONS -> LLM`.
 - **Case Study View:**
-  - **Title:** `Synqra — From Document Intelligence to AI-Assisted Observability`
+  - **Title:** `Synqra — Cloud-Deployed Hybrid RAG Application (HTTPS)`
   - **4 Metadata Cards:** Role (`GenAI & Full-Stack Builder`), Hosting & TLS (`AWS EC2 · Nginx HTTPS`), Retrieval Eval (`1.00 Hit Rate / MRR / NDCG`), Answer & Cite (`0.67 F1 · 0.38 Cite Prec.`)
   - **Default Hero Visualizer (`vizState.synqraHeroType === "synqra"`):** 3D-rotated vector point cloud with proximity edges, top-K highlighting, an ambient green query dot travelling toward the vector cluster, and a single-shot expanding wave (`synqraPulseWave`) when triggered.
   - **Case Study Controls:**
     - `Trigger Query Pulse`: Sets `synqraPulseBoost = 1.0` and starts `synqraPulseWave = 0.0` (advances `+0.022` per frame until `> 1`, then resets to `-1`).
     - `Toggle Pipeline View`: Switches `vizState.synqraHeroType` between `'synqra'` (vector space) and `'rag_flow'` (full RAG pipeline) and updates `#case-viz-badge-label`.
-  - **Highlights:** Hybrid retrieval (BM25 + dense vectors with RRF) and semantic chunking with page-level citations; AWS EC2 HTTPS deployment via Docker Compose and Nginx with automated TLS renewal, AWS Cognito JWT auth, and GitHub Actions CI/CD to GHCR; Application logs and health checks available, with CloudWatch integration, structured logging, custom metrics, dashboards, and alerts in progress; planned log processing and AI-assisted incident investigation; evaluation on 6 benchmark questions (1.0 hit rate, MRR, and NDCG; 0.67 answer F1; 0.38 citation precision diagnosed for fix).
+  - **Highlights:** Hybrid retrieval (BM25 + dense vectors with RRF) and semantic chunking with page-level citations; AWS EC2 HTTPS deployment via Docker Compose and Nginx with automated TLS renewal, AWS Cognito JWT auth, and GitHub Actions CI/CD to GHCR; CloudWatch logging and custom metrics for RAG latency, API performance, and vector DB operations; evaluation on 6 benchmark questions (1.0 hit rate, MRR, and NDCG; 0.67 answer F1; 0.38 citation precision diagnosed for fix).
 
 ### Project 2: Speech Inference Engine (`id: "speech"`)
 - **Card Tag:** `Speech Inference Engine · Cloud Security Web '26`
